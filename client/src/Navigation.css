@@ -1,0 +1,29 @@
+nav {
+  background-color: black;
+  padding: 0.5rem 0;
+ }
+
+ .title {
+  font-size: 2rem;
+  margin: 0;
+  font-weight: bolder;
+ }
+ 
+ .nav-content {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ }
+ 
+ .logo img {
+  height: 50px;
+  width: 50px;
+ }
+ 
+ ul {
+  list-style-type: none;
+  display: flex;
+  gap: 2rem;
+ }

@@ -1,0 +1,88 @@
+.dashboard {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.challenge {
+  border: 2px solid #333;
+  padding: 10px;
+}
+
+.challenge button {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.btn-off{
+  background-color: #fa0101; 
+}
+
+.btn-on {
+  background-color: #00c02a; 
+}
+.btn-pauze {
+  background-color: #ffcc00; 
+  color: #000000;
+}
+
+.btn-off:hover {
+  background-color: #c90000; 
+}
+
+.btn-on:hover {
+  background-color: #009a1f; 
+}
+.restart-button {
+  margin-top: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000000;
+  background-color: #ffffff;
+  margin: 0 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+ }
+
+ .submitButton {
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: rgb(57, 54, 54);
+ }
+
+ .teamNameInput {
+  background-color: white;
+  color: black;
+ }
+
+ .completionTitle {
+  margin-top: 0;
+ }
+
+ .title{
+  display: flex;
+  font-size: 15px;
+ }
+
+ .close{
+  font-size: 15px;
+  margin: 5px;
+  padding: 0px 5px;
+ }
