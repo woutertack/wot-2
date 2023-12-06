@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../consts";
 import Timer from "../Timer";
 import io from "socket.io-client";
+import { set } from "mongoose";
 
 const ButtonChallengeOne = () => {
-
+  const [puzzleCompleted, setPuzzleCompleted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const socket = io(API_URL);
 
@@ -27,8 +28,21 @@ const ButtonChallengeOne = () => {
 
   useEffect(() => {
     fetch(`${API_URL}/challenge1Completed`);
-  }
-  , []);
+
+   }, []);
+  
+  // socket.on('challengeComplete1', () => {
+  //   setPuzzleCompleted(true);
+  //   console.log("Challenge 1 completed");
+  // });
+
+  socket.on('challengeComplete1', (payload) => {
+    console.log(payload);
+    if(payload){
+      setPuzzleCompleted(true);
+    }
+    
+  })
 
   return (
     <div className="challenge">
@@ -40,7 +54,7 @@ const ButtonChallengeOne = () => {
         onStart={handleStart}
       />
     
-     
+    {puzzleCompleted && <p>Puzzle Completed!</p>}
     </div>
   );
 };

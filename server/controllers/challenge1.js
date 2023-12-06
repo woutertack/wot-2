@@ -11,7 +11,7 @@ export const puzzleCompleteProp1 = (req, res, io) => {
         res.status(200).json({ completed: true });
         // DELETE THIS LATER
         // MQTTSingleton.getClient().publish('prop4/startChallenge4');
-        MQTTSingleton.getClient().publish('prop5/index');
+        // MQTTSingleton.getClient().publish('prop5/index');
 
         MQTTSingleton.getClient().publish('alarm');
 

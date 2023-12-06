@@ -21,21 +21,25 @@ export function ConnectionManager() {
     //   navigate(`/${payload}`);
     // })
 
-    socket.on('challengeComplete1', (payload) => {
-      console.log(payload);
-    })
-    socket.on('challengeComplete2', (payload) => {
-      console.log("challenge completed 2");
-    })
-    socket.on('challengeComplete3', (payload) => {
-      console.log("challenge completed 3");
-    })
-    socket.on('challengeComplete4', (payload) => {
-      console.log("challenge completed 4");
-    })
-    socket.on('challengeComplete5', (payload) => {
-      console.log("challenge completed 5");
-    })
+    // socket.on('challengeComplete1', (payload) => {
+    //   console.log(payload);
+    //   if(payload){
+    //     socket.emit('challengeComplete1', payload);
+    //   }
+      
+    // })
+    // socket.on('challengeComplete2', (payload) => {
+    //   console.log("challenge completed 2");
+    // })
+    // socket.on('challengeComplete3', (payload) => {
+    //   console.log("challenge completed 3");
+    // })
+    // socket.on('challengeComplete4', (payload) => {
+    //   console.log("challenge completed 4");
+    // })
+    // socket.on('challengeComplete5', (payload) => {
+    //   console.log("challenge completed 5");
+    // })
 
     // /**
     //  * Whenever a button is pressed, call the corresponding function
