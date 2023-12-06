@@ -22,7 +22,7 @@ export function ConnectionManager() {
     // })
 
     socket.on('challengeComplete1', (payload) => {
-      console.log("challenge completed 1");
+      console.log(payload);
     })
     socket.on('challengeComplete2', (payload) => {
       console.log("challenge completed 2");

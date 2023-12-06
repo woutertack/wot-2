@@ -15,7 +15,7 @@ export const puzzleCompleteProp1 = (req, res, io) => {
 
         MQTTSingleton.getClient().publish('alarm');
 
-        io.emit('puzzleComplete', true);
+        io.emit('challengeComplete1', true);
 
       } else {
         res.status(200).json({ completed: false });

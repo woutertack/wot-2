@@ -13,7 +13,7 @@ export const useSocket = () => {
     
 
     // for debug purposes
-    socket.onAny((m, payload) => { console.log(m, payload) });
+    // socket.onAny((m, payload) => { console.log(m, payload) });
   }
 
   /**
