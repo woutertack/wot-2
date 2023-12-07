@@ -19,28 +19,12 @@ export const puzzleCompleteProp1 = (req, res) => {
 
 export const restartArduinoProp1 = (req, res) => {
   try{
-    MQTTSingleton.getClient().subscribeOnce('prop1/restartArduino').then((message) => {
-      res.status(200).json({ restartArduino: message });
-    });
     MQTTSingleton.getClient().publish('prop1/restartArduino');
   }
   catch(e){
     console.error(e)
   }
 }
-
-
-// export const startChallenge1 = (req, res) => {
-//   try{
-//     MQTTSingleton.getClient().subscribeOnce('prop1/startChallenge1').then((message) => {
-//       res.status(200).json({ challengeMessage: message });
-//     });
-//     MQTTSingleton.getClient().publish('prop1/startChallenge1');
-//   }
-//   catch(e){
-//     console.error(e)
-//   }
-// }
 
 export const startChallenge1 = (req, res) => {
   MQTTSingleton.getClient().subscribe('prop1/puzzleComplete');

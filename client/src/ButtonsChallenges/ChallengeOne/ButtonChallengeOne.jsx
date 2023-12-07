@@ -11,7 +11,7 @@ const ButtonChallengeOne = () => {
 
 
   const handleRestart = () => {
-  
+    socket.emit("restartButtonChallenge1Clicked");
     console.log("Handling restart...");
   };
   
@@ -28,7 +28,6 @@ const ButtonChallengeOne = () => {
   //  }, []);
   
   socket.on('challengeComplete1', () => {
-    
     setPuzzleCompleted(true);
     console.log("Challenge 1 completed");
   });

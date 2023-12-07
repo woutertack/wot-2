@@ -35,6 +35,7 @@ io.on('connection', (socket) => {
   console.log('New user connected!');
 
   socket.on('startButtonChallenge1Clicked', startChallenge1);
+  socket.on('restartButtonChallenge1Clicked', restartArduinoProp1);
 
   // timer sockets
   socket.on('startTimer', startMainTimer);
@@ -44,21 +45,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', function () {
     console.log('User disconnected...');
   });
-  // socket.on('startButtonClicked', () => {
-  //   mqttClient.subscribe('prop1/puzzleComplete');
-  //   console.log('Start button clicked with custom data:', 'connected');
-  //   try {
-  //     // Publish a message to your Arduino using MQTT
-  //     mqttClient.publish('prop1/startChallenge1', 'Challenge 1 started!');
-  //     console.log('MQTT message published to Arduino');
-  //     // You can include additional data or customize the MQTT message as needed
-
-  //     // Send a response to the client
-  //     socket.emit('challengeStarted', { message: 'Challenge 1 started!' });
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // });
 })
 
 
@@ -85,6 +71,7 @@ const MQTT_TOPICS_SUBSCRIPTIONS = [
   'prop3/puzzleComplete',
   'prop4/puzzleComplete',
   'prop5/puzzleComplete',
+  'prop1/restartArduino',
 ];
 
 MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
