@@ -2,26 +2,16 @@ import MQTTSingleton from "../lib/mqttSingleton.js"
 import { io } from "../index.js"
 
 export const puzzleCompleteProp1 = (req, res) => {
-  try {
-    // Subscribe to the puzzleComplete topic and respond to the client once
-    MQTTSingleton.getClient('prop1/puzzleComplete').subscribeOnce().then((message) => {
-      if (message === 'completed') {
-        res.status(200).json({ completed: true });
-        // DELETE THIS LATER
-        // MQTTSingleton.getClient().publish('prop4/startChallenge4');
-        // MQTTSingleton.getClient().publish('prop5/index');
-
-        MQTTSingleton.getClient().publish('alarm');
+  try{
+    MQTTSingleton.getClient().publish('alarm');
         io.emit('challengeComplete1', true);
-
-      } else {
-        res.status(200).json({ completed: false });
-      }
-    });
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: 'Internal Server Error' });
   }
+  catch(e){
+    console.error(e)
+  }
+        
+
+     
 }
 
 

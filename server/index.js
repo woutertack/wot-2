@@ -81,11 +81,18 @@ httpServer.listen(PORT, () => {
 
 const MQTT_TOPICS_SUBSCRIPTIONS = [
   'prop1/puzzleComplete',
+  'prop2/puzzleComplete',
+  'prop3/puzzleComplete',
+  'prop4/puzzleComplete',
+  'prop5/puzzleComplete',
 ];
 
 MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
   mqttSingleton.getClient().subscribeOnce(topic).then((message) => {
-    console.log({topic});
+    console.log({topic, message});
+    if(topic === 'prop1/puzzleComplete' && message === 'completed'){
+      puzzleCompleteProp1();
+    } 
   }
   ).catch((err) => {
     console.error(`Error subscribing to topic ${topic}: ${err}`);
