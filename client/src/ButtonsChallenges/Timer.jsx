@@ -1,51 +1,48 @@
 // Timer.js
 import React, { useState, useEffect } from "react";
 
-const Timer = ({ onTimeUpdate, onStart, onStop, onRestart }) => {
+const Timer = ({ onRestart }) => {
   const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
+  const [cooldown, setCooldown] = useState(false);
+  const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
-    let timerId;
+    let countdownInterval;
 
-    if (isRunning) {
-      timerId = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
-        onTimeUpdate(time + 1);
+    if (cooldown) {
+      countdownInterval = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+
+        if (countdown === 0) {
+          clearInterval(countdownInterval);
+          setCooldown(false);
+          setCountdown(5);
+        }
       }, 1000);
     }
 
-    return () => clearInterval(timerId);
-  }, [isRunning, time, onTimeUpdate]);
-
-  const handleStart = () => {
-    console.log("clicked");
-    setIsRunning(true);
-    onStart && onStart();
-  };
-
-  const handleStop = () => {
-    setIsRunning(false);
-    onStop && onStop();
-  };
+    return () => clearInterval(countdownInterval);
+  }, [cooldown, countdown]);
 
   const handleRestart = () => {
-    setTime(0);
-    setIsRunning(false);
     onRestart && onRestart();
+    if (!cooldown) {
+      setCooldown(true);
+      setTime(0);
+
+      // Trigger onRestart after 5 seconds
+      setTimeout(() => {
+        
+        setCooldown(false); // Reset the cooldown after 5 seconds
+        setCountdown(5); // Reset the countdown
+      }, 5000);
+    }
   };
 
   return (
     <div>
-      <div>{`Time: ${time}s`}</div>
-      <button onClick={handleStart} disabled={isRunning}>
-        Start
-      </button>
-      <button onClick={handleStop} disabled={!isRunning}>
-        Stop
-      </button>
-      <button onClick={handleRestart}>
-        Restart
+      <button onClick={handleRestart} disabled={cooldown}>
+        {cooldown ? `Restarting in ${countdown}s` : "Restart"}
       </button>
     </div>
   );
