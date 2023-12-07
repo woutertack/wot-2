@@ -14,6 +14,8 @@ const ButtonChallengeTwo = () => {
     setCurrentTime(0);
     console.log("Handling restart...");
     setPuzzleCompleted(false);
+
+    
   };
   
   socket.on('challengeComplete2', () => {

@@ -15,7 +15,7 @@ import { restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoP
 import { resetRaspberryC5 } from './controllers/challenge5.js';
 import { puzzleCompleteProp3, puzzleCompleteProp4 } from './controllers/puzzleComplete.js';
 import { restartArduinoProp4 } from './controllers/challenge4.js';
-import { startChallenge3 } from './controllers/startChallenges.js';
+import { startChallenge3, startChallenge4, startChallenge5 } from './controllers/startChallenges.js';
 
 
 dotenv.config();
@@ -42,6 +42,8 @@ io.on('connection', (socket) => {
 
   socket.on('startButtonChallenge1Clicked', startChallenge1);
   socket.on('startButtonChallenge3Clicked', startChallenge3);
+  socket.on('startButtonChallenge4Clicked', startChallenge4);
+  socket.on('startButtonChallenge5Clicked', startChallenge5);
 
   // restart arduinos
   socket.on('restartButtonChallenge1Clicked', restartArduinoProp1);
@@ -84,9 +86,6 @@ timerSingleton.getInstance("mainTimer").onTick = (elapsedTime) => io.emit('timer
 
 // Define routes
 app.get('/', (req, res) => { res.send('The LED API is working!'); });
-// app.get('/challenge1Completed', puzzleCompleteProp1);
-// app.get('/restartArduinoProp1', restartArduinoProp1);
-// app.get('/startChallenge1', startChallenge1);
 
 
 // Start server
@@ -118,10 +117,16 @@ MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
       puzzleCompleteProp2();
     }if (topic === "prop3/puzzleCompleteCamera1" && message === "completed") {
       io.emit("challengeComplete3Camera1", true);
+      // start the next camera
+      MQTTSingleton.getClient().publish('prop3/startChallenge3Camera2');
     }if (topic === "prop3/puzzleCompleteCamera2" && message === "completed") {
       io.emit("challengeComplete3Camera2", true);
+      // start the next camera
+      MQTTSingleton.getClient().publish('prop3/startChallenge3Camera3');
     }if (topic === "prop3/puzzleCompleteCamera3" && message === "completed") {
       io.emit("challengeComplete3Camera3", true);
+      // start the next camera
+      MQTTSingleton.getClient().publish('prop3/startChallenge3Camera4');
     }if (topic === "prop3/puzzleCompleteCamera4" && message === "completed") {
       io.emit("challengeComplete3Camera4", true);
     }if(topic === 'prop4/puzzleComplete' && message === 'completed'){

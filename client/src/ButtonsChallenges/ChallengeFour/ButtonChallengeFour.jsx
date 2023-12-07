@@ -14,6 +14,9 @@ const ButtonChallengeFour = () => {
 
     console.log("Handling restart...");
     setPuzzleCompleted(false);
+
+    // also start challenge again, if you want to full restart (without starting) press restart all arduinos
+    socket.emit("startButtonChallenge4Clicked");
   };
 
   socket.on('challengeComplete4', () => {

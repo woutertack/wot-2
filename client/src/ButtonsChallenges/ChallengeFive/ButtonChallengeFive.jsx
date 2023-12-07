@@ -14,6 +14,11 @@ const ButtonChallengeFive = () => {
     socket.emit("restartButtonChallenge5Clicked");
     setCurrentTime(0);
     console.log("Handling restart...");
+
+    setPuzzleCompleted(false);
+
+    // also start challenge again, if you want to full restart (without starting) press restart all arduinos
+    socket.emit("startButtonChallenge5Clicked");
   };
 
   return (
