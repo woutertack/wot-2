@@ -11,7 +11,7 @@ const ButtonChallengeTwo = () => {
 
 
   const handleRestart = () => {
-  
+    setCurrentTime(0);
     console.log("Handling restart...");
   };
   

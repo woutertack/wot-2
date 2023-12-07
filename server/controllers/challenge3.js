@@ -111,9 +111,6 @@ export const puzzleCompleteProp3All = (req, res) => {
 
 export const restartArduinoProp3Camera1 = (req, res) => {
   try{
-    MQTTSingleton.getClient().subscribeOnce('prop3/restartArduinoCamera1').then((message) => {
-      res.status(200).json({ restartArduino: message });
-    });
     MQTTSingleton.getClient().publish('prop3/restartArduinoCamera1');
   }
   catch(e){
@@ -123,9 +120,6 @@ export const restartArduinoProp3Camera1 = (req, res) => {
 
 export const restartArduinoProp3Camera2 = (req, res) => {
   try{
-    MQTTSingleton.getClient().subscribeOnce('prop3/restartArduinoCamera2').then((message) => {
-      res.status(200).json({ restartArduino: message });
-    });
     MQTTSingleton.getClient().publish('prop3/restartArduinoCamera2');
   }
   catch(e){
@@ -135,9 +129,6 @@ export const restartArduinoProp3Camera2 = (req, res) => {
 
 export const restartArduinoProp3Camera3 = (req, res) => {
   try{
-    MQTTSingleton.getClient().subscribeOnce('prop3/restartArduinoCamera3').then((message) => {
-      res.status(200).json({ restartArduino: message });
-    });
     MQTTSingleton.getClient().publish('prop3/restartArduinoCamera3');
   }
   catch(e){
@@ -148,10 +139,6 @@ export const restartArduinoProp3Camera3 = (req, res) => {
 
 export const restartArduinoProp3Camera4 = (req, res) => {
   try{
-    console.log("restartArduinoProp3Camera4");
-    MQTTSingleton.getClient().subscribeOnce('prop3/restartArduinoCamera4').then((message) => {
-      res.status(200).json({ restartArduino: message });
-    });
     MQTTSingleton.getClient().publish('prop3/restartArduinoCamera4');
   }
   catch(e){

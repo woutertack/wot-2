@@ -23,9 +23,6 @@ export const puzzleCompleteProp2 = (req, res) => {
 
 export const restartArduinoProp2 = (req, res) => {
   try{
-    MQTTSingleton.getClient().subscribeOnce('prop2/restartArduino').then((message) => {
-      res.status(200).json({ restartArduino: message });
-    });
     MQTTSingleton.getClient().publish('prop2/restartArduino');
   }
   catch(e){

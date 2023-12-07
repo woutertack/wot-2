@@ -34,3 +34,12 @@ export const startChallenge5 = (req, res) => {
 //     res.status(500).json({ error: 'Internal Server Error' });
 //   }
 // }
+
+export const resetRaspberryC5 = (req, res) => {
+  try{
+    MQTTSingleton.getClient().publish('prop5/restartPi');
+  }
+  catch(e){
+    console.error(e)
+  }
+}

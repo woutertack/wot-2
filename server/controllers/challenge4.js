@@ -24,28 +24,12 @@ export const puzzleCompleteProp4 = (req, res) => {
 
 export const restartArduinoProp4 = (req, res) => {
   try{
-    MQTTSingleton.getClient().subscribeOnce('prop4/restartArduino').then((message) => {
-      res.status(200).json({ restartArduino: message });
-    });
     MQTTSingleton.getClient().publish('prop4/restartArduino');
   }
   catch(e){
     console.error(e)
   }
 }
-
-// export const restartArduino2Prop4 = (req, res) => {
-//   try{
-//     MQTTSingleton.getClient().subscribeOnce('prop4/restartArduino2').then((message) => {
-//       res.status(200).json({ restartArduino: message });
-//     });
-//     MQTTSingleton.getClient().publish('prop4/restartArduino2');
-//   }
-//   catch(e){
-//     console.error(e)
-//   }
-// }
-
 
 export const startChallenge4 = (req, res) => {
   try{
