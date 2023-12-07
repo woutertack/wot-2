@@ -10,6 +10,9 @@ import { puzzleCompleteProp1, startChallenge1 } from './controllers/challenge1.j
 import { restartArduinoProp1 } from './controllers/challenge1.js';
 import { pauzeMainTimer, startMainTimer, stopMainTimer } from './controllers/timer.js';
 import mqttSingleton from './lib/mqttSingleton.js';
+import { restartArduinoProp2 } from './controllers/challenge2.js';
+import { restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoProp3Camera3, restartArduinoProp3Camera4 } from './controllers/challenge3.js';
+import { resetRaspberryC5 } from './controllers/challenge5.js';
 
 
 dotenv.config();
@@ -36,6 +39,14 @@ io.on('connection', (socket) => {
 
   socket.on('startButtonChallenge1Clicked', startChallenge1);
   socket.on('restartButtonChallenge1Clicked', restartArduinoProp1);
+
+  socket.on('restartButtonChallenge2Clicked', restartArduinoProp2);
+  socket.on('restartButtonChallenge3ClickedCamera1', restartArduinoProp3Camera1);
+  socket.on('restartButtonChallenge3ClickedCamera2', restartArduinoProp3Camera2);
+  socket.on('restartButtonChallenge3ClickedCamera3', restartArduinoProp3Camera3);
+  socket.on('restartButtonChallenge3ClickedCamera4', restartArduinoProp3Camera4);
+  socket.on('restartButtonChallenge4Clicked', restartArduinoProp2);
+  socket.on('restartButtonChallenge5Clicked', resetRaspberryC5);
 
   // timer sockets
   socket.on('startTimer', startMainTimer);
@@ -71,7 +82,6 @@ const MQTT_TOPICS_SUBSCRIPTIONS = [
   'prop3/puzzleComplete',
   'prop4/puzzleComplete',
   'prop5/puzzleComplete',
-  'prop1/restartArduino',
 ];
 
 MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {

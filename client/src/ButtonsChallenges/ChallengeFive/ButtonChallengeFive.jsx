@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 import Timer from "../Timer";
+import {socket} from '../../socket';
 
 const ButtonChallengeFive = () => {
   const [currentTime, setCurrentTime] = useState(0);
@@ -12,6 +13,7 @@ const ButtonChallengeFive = () => {
   };
 
   const handleRestart = () => {
+    socket.emit("restartButtonChallenge5Clicked");
     setCurrentTime(0);
     console.log("Handling restart...");
   };
