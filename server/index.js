@@ -36,6 +36,7 @@ io.on('connection', (socket) => {
   console.log('New user connected!');
 
   socket.on('startButtonChallenge1Clicked', startChallenge1);
+  socket.on('restartButtonChallenge1Clicked', restartArduinoProp1);
 
   // timer sockets
   socket.on('startTimer', startMainTimer);
@@ -45,8 +46,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', function () {
     console.log('User disconnected...');
   });
-  
-})
+
 
 
 // Whenever we have a tick
@@ -72,6 +72,7 @@ const MQTT_TOPICS_SUBSCRIPTIONS = [
   'prop3/puzzleComplete',
   'prop4/puzzleComplete',
   'prop5/puzzleComplete',
+  'prop1/restartArduino',
 ];
 
 MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
