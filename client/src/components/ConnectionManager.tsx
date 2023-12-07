@@ -6,13 +6,13 @@ import { useNavigate } from "react-router-dom";
 // import { ControlButton } from '../enums';
 
 export function ConnectionManager() {
-  const { connect, disconnect } = useSocket();
-  const navigate = useNavigate();
-  // const controlButtonContext = useContext(ControlButtonContext);
+  // const { connect, disconnect } = useSocket();
+  // const navigate = useNavigate();
+  // // const controlButtonContext = useContext(ControlButtonContext);
 
-  useEffect(() => {
-    // connect with socket.io
-    connect();
+  // useEffect(() => {
+  //   // connect with socket.io
+  //   connect();
 
     /**
      * Whenever the page is changed, navigate to the new page
@@ -62,12 +62,12 @@ export function ConnectionManager() {
     // })
 
     // cleanup
-    return () => {
-      // socket.off('button-pressed');
-      // socket.off('change-page');
-      disconnect();
-    }
-  }, []);
+  //   return () => {
+  //     // socket.off('button-pressed');
+  //     // socket.off('change-page');
+  //     disconnect();
+  //   }
+  // }, []);
 
   return (<div></div>);
 }

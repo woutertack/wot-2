@@ -1,9 +1,7 @@
 import MQTTSingleton from "../lib/mqttSingleton.js"
+import { io } from "../index.js"
 
-
-
-
-export const puzzleCompleteProp1 = (req, res, io) => {
+export const puzzleCompleteProp1 = (req, res) => {
   try {
     // Subscribe to the puzzleComplete topic and respond to the client once
     MQTTSingleton.getClient().subscribeOnce('prop1/puzzleComplete').then((message) => {
@@ -14,7 +12,6 @@ export const puzzleCompleteProp1 = (req, res, io) => {
         // MQTTSingleton.getClient().publish('prop5/index');
 
         MQTTSingleton.getClient().publish('alarm');
-
         io.emit('challengeComplete1', true);
 
       } else {
@@ -55,12 +52,21 @@ export const restartArduinoProp1 = (req, res) => {
 //   }
 // }
 
-export const startChallenge1 = (req, res, io) => {
+export const startChallenge1 = (req, res) => {
+  MQTTSingleton.getClient().subscribe('prop1/puzzleComplete');
   try {
     MQTTSingleton.getClient().publish('prop1/startChallenge1');
-    res.status(200).send('Challenge 1 started!');
-  
+    // res.status(200).send('Challenge 1 started!');
+    
+    MQTTSingleton.getClient().publish('prop1/startChallenge1', 'Challenge 1 started!');
+    console.log('MQTT message published to Arduino');
+    // You can include additional data or customize the MQTT message as needed
+
+    // Send a response to the client
+    io.emit('challengeStarted', { message: 'Challenge 1 started!' });
   } catch(e) {
     console.error(e)
   }
 }
+// io.on('startButtonChallenge1Clicked', startChallenge1);
+  

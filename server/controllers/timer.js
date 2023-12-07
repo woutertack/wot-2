@@ -1,12 +1,12 @@
 import Timer from '../lib/timer.js';
 import timerSingleton from '../lib/timerSingleton.js';
 
-
 // main Timer -----------------------------------------------------
 export const startMainTimer = (req, res) => {
   try {
     timerSingleton.getInstance("mainTimer").start();
-    res.status(200).send('Timer started');
+    console.log("timer started");
+    // res.status(200).send('Timer started');
   } catch(e) {
     console.error(e)
   }
@@ -14,7 +14,7 @@ export const startMainTimer = (req, res) => {
 export const pauzeMainTimer = (req, res) => {
   try {
     timerSingleton.getInstance("mainTimer").pauseToggle();
-    res.status(200).send('Timer pauzed');
+    // res.status(200).send('Timer pauzed');
   } catch(e) {
     console.error(e)
   }
@@ -22,7 +22,7 @@ export const pauzeMainTimer = (req, res) => {
 export const stopMainTimer = (req, res) => {
   try {
     timerSingleton.getInstance("mainTimer").stop();
-    res.status(200).send('Timer stopped!');
+    // res.status(200).send('Timer stopped!');
   }
   catch(e) {
     console.error(e)

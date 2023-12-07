@@ -2,13 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { API_URL } from "../../consts";
 import Timer from "../Timer";
-import io from "socket.io-client";
-import { set } from "mongoose";
+import {socket} from '../../socket';
 
 const ButtonChallengeOne = () => {
   const [puzzleCompleted, setPuzzleCompleted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const socket = io(API_URL);
+  // let socket = io(API_URL);
 
   const handleTimeUpdate = (newTime) => {
     setCurrentTime(newTime);
@@ -21,7 +20,8 @@ const ButtonChallengeOne = () => {
   };
   
   const handleStart = () => {
-    socket.emit("startButtonClicked");
+    socket.emit("startButtonChallenge1Clicked");
+    
     console.log("Handling start challenge 1...");
   };
 

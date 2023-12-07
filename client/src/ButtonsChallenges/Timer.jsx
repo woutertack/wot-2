@@ -19,6 +19,7 @@ const Timer = ({ onTimeUpdate, onStart, onStop, onRestart }) => {
   }, [isRunning, time, onTimeUpdate]);
 
   const handleStart = () => {
+    console.log("clicked");
     setIsRunning(true);
     onStart && onStart();
   };

@@ -14,6 +14,7 @@ import ButtonChallengeTwo from './ButtonsChallenges/ChallengeTwo/ButtonChallenge
 import ButtonChallengeThree from './ButtonsChallenges/ChallengeThree/ButtonChallengeThree.jsx';
 import ButtonChallengeFour from './ButtonsChallenges/ChallengeFour/ButtonChallengeFour.jsx';
 import ButtonChallengeFive from './ButtonsChallenges/ChallengeFive/ButtonChallengeFive.jsx';
+import MainTimer from './MainTimer.jsx';
 
 
 
@@ -25,7 +26,7 @@ const Dashboard = () => {
   return (
   <div className="dashboard">
     <h1>Escape Room Dashboard</h1>
-  
+      <MainTimer/>
      <div className="challenges-grid">
 
 
