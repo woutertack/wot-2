@@ -9,6 +9,7 @@ import { Server } from 'socket.io';
 import { puzzleCompleteProp1, startChallenge1 } from './controllers/challenge1.js';
 import { restartArduinoProp1 } from './controllers/challenge1.js';
 import { pauzeMainTimer, startMainTimer, stopMainTimer } from './controllers/timer.js';
+import mqttSingleton from './lib/mqttSingleton.js';
 
 
 dotenv.config();
@@ -71,12 +72,27 @@ app.get('/restartArduinoProp1', restartArduinoProp1);
 // app.get('/startChallenge1', startChallenge1);
 
 
-
 // Start server
+// mqttSingleton.getInstance().subscribe('prop1/puzzleComplete');
 const PORT = process.env.PORT || 3000;
 httpServer.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
+
+const MQTT_TOPICS_SUBSCRIPTIONS = [
+  'prop1/puzzleComplete',
+];
+
+MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
+  mqttSingleton.getClient().subscribeOnce(topic).then((message) => {
+    console.log({topic});
+  }
+  ).catch((err) => {
+    console.error(`Error subscribing to topic ${topic}: ${err}`);
+  }
+);
+});
+
 
 // Export app for testing purposes
 export default app;
