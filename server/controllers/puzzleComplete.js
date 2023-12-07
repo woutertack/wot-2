@@ -24,3 +24,14 @@ export const puzzleCompleteProp2 = (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+export const puzzleCompleteProp3 = (req, res) => {
+  try {
+        MQTTSingleton.getClient().publish('prop3/startChallenge3');
+        MQTTSingleton.getClient().publish('sound');
+        MQTTSingleton.getClient().publish('prop3/index');
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}

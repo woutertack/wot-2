@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
     console.log('User disconnected...');
   });
 
-
+});
 
 // Whenever we have a tick
 timerSingleton.getInstance("mainTimer").onTick = (elapsedTime) => io.emit('timerTick', elapsedTime);
@@ -69,10 +69,13 @@ httpServer.listen(PORT, () => {
 const MQTT_TOPICS_SUBSCRIPTIONS = [
   'prop1/puzzleComplete',
   'prop2/puzzleComplete',
-  'prop3/puzzleComplete',
+  "prop3/puzzleCompleteCamera1",
+  "prop3/puzzleCompleteCamera2",
+  "prop3/puzzleCompleteCamera3",
+  "prop3/puzzleCompleteCamera4",
   'prop4/puzzleComplete',
   'prop5/puzzleComplete',
-  'prop1/restartArduino',
+ 
 ];
 
 MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
@@ -83,7 +86,17 @@ MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
     }
     if(topic === 'prop2/puzzleComplete' && message === 'completed'){
       puzzleCompleteProp2();
-    } 
+    }if (topic === "prop3/puzzleCompleteCamera1" && message === "completed") {
+      io.emit("challengeComplete3Camera1", true);
+    }if (topic === "prop3/puzzleCompleteCamera2" && message === "completed") {
+      io.emit("challengeComplete3Camera2", true);
+    }if (topic === "prop3/puzzleCompleteCamera3" && message === "completed") {
+      io.emit("challengeComplete3Camera3", true);
+    }if (topic === "prop3/puzzleCompleteCamera4" && message === "completed") {
+      io.emit("challengeComplete3Camera4", true);
+    }if(topic === 'prop4/puzzleComplete' && message === 'completed'){
+      
+    }  
   }
   ).catch((err) => {
     console.error(`Error subscribing to topic ${topic}: ${err}`);

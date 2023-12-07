@@ -27,7 +27,7 @@ export const restartArduinoProp1 = (req, res) => {
 }
 
 export const startChallenge1 = (req, res) => {
-  MQTTSingleton.getClient().subscribe('prop1/puzzleComplete');
+  
   try {
     MQTTSingleton.getClient().publish('prop1/startChallenge1');
     // res.status(200).send('Challenge 1 started!');
