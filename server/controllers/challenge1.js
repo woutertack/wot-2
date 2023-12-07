@@ -4,7 +4,7 @@ import { io } from "../index.js"
 export const puzzleCompleteProp1 = (req, res) => {
   try {
     // Subscribe to the puzzleComplete topic and respond to the client once
-    MQTTSingleton.getClient().subscribeOnce('prop1/puzzleComplete').then((message) => {
+    MQTTSingleton.getClient('prop1/puzzleComplete').subscribeOnce().then((message) => {
       if (message === 'completed') {
         res.status(200).json({ completed: true });
         // DELETE THIS LATER

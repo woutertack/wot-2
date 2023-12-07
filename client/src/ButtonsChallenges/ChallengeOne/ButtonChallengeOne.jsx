@@ -26,10 +26,10 @@ const ButtonChallengeOne = () => {
   };
 
 
-  useEffect(() => {
-    fetch(`${API_URL}/challenge1Completed`);
+  // useEffect(() => {
+  //   fetch(`${API_URL}/challenge1Completed`);
 
-   }, []);
+  //  }, []);
   
   // socket.on('challengeComplete1', () => {
   //   setPuzzleCompleted(true);
