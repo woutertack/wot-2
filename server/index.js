@@ -10,6 +10,7 @@ import { puzzleCompleteProp1, startChallenge1 } from './controllers/challenge1.j
 import { restartArduinoProp1 } from './controllers/challenge1.js';
 import { pauzeMainTimer, startMainTimer, stopMainTimer } from './controllers/timer.js';
 import mqttSingleton from './lib/mqttSingleton.js';
+import { puzzleCompleteProp2 } from './controllers/puzzleComplete.js';
 
 
 dotenv.config();
@@ -44,21 +45,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', function () {
     console.log('User disconnected...');
   });
-  // socket.on('startButtonClicked', () => {
-  //   mqttClient.subscribe('prop1/puzzleComplete');
-  //   console.log('Start button clicked with custom data:', 'connected');
-  //   try {
-  //     // Publish a message to your Arduino using MQTT
-  //     mqttClient.publish('prop1/startChallenge1', 'Challenge 1 started!');
-  //     console.log('MQTT message published to Arduino');
-  //     // You can include additional data or customize the MQTT message as needed
-
-  //     // Send a response to the client
-  //     socket.emit('challengeStarted', { message: 'Challenge 1 started!' });
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // });
+  
 })
 
 
@@ -92,6 +79,9 @@ MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
     console.log({topic, message});
     if(topic === 'prop1/puzzleComplete' && message === 'completed'){
       puzzleCompleteProp1();
+    }
+    if(topic === 'prop2/puzzleComplete' && message === 'completed'){
+      puzzleCompleteProp2();
     } 
   }
   ).catch((err) => {

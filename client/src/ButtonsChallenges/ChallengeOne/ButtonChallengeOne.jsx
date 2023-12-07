@@ -22,10 +22,7 @@ const ButtonChallengeOne = () => {
   };
 
 
-  // useEffect(() => {
-  //   fetch(`${API_URL}/challenge1Completed`);
-
-  //  }, []);
+ 
   
   socket.on('challengeComplete1', () => {
     
@@ -33,13 +30,7 @@ const ButtonChallengeOne = () => {
     console.log("Challenge 1 completed");
   });
 
-  // socket.on('challengeComplete1', (payload) => {
-  //   console.log(payload);
-  //   if(payload){
-  //     setPuzzleCompleted(true);
-  //   }
-    
-  // })
+
 
   return (
     <div className="challenge">

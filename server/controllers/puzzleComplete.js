@@ -5,7 +5,7 @@ import { io } from "../index.js"
 export const puzzleCompleteProp1 = (req, res) => {
   try{
     MQTTSingleton.getClient().publish('alarm');
-    MQTTSingleton.getClient().publish('prop2/startChallenge2');
+    // MQTTSingleton.getClient().publish('prop2/startChallenge2');
         io.emit('challengeComplete1', true);
         console.log('Challenge 1 completed, published next challenge');
   }
