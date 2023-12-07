@@ -10,6 +10,12 @@ import { puzzleCompleteProp1, startChallenge1 } from './controllers/challenge1.j
 import { restartArduinoProp1 } from './controllers/challenge1.js';
 import { pauzeMainTimer, startMainTimer, stopMainTimer } from './controllers/timer.js';
 import mqttSingleton from './lib/mqttSingleton.js';
+import { puzzleCompleteProp2, restartArduinoProp2 } from './controllers/challenge2.js';
+import { restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoProp3Camera3, restartArduinoProp3Camera4 } from './controllers/challenge3.js';
+import { resetRaspberryC5 } from './controllers/challenge5.js';
+import { puzzleCompleteProp3, puzzleCompleteProp4 } from './controllers/puzzleComplete.js';
+import { restartArduinoProp4 } from './controllers/challenge4.js';
+import { startChallenge3 } from './controllers/startChallenges.js';
 
 
 dotenv.config();
@@ -35,15 +41,32 @@ io.on('connection', (socket) => {
   console.log('New user connected!');
 
   socket.on('startButtonChallenge1Clicked', startChallenge1);
-  socket.on('restartButtonChallenge1Clicked', restartArduinoProp1);
+  socket.on('startButtonChallenge3Clicked', startChallenge3);
 
+  // restart arduinos
+  socket.on('restartButtonChallenge1Clicked', restartArduinoProp1);
   socket.on('restartButtonChallenge2Clicked', restartArduinoProp2);
   socket.on('restartButtonChallenge3ClickedCamera1', restartArduinoProp3Camera1);
   socket.on('restartButtonChallenge3ClickedCamera2', restartArduinoProp3Camera2);
   socket.on('restartButtonChallenge3ClickedCamera3', restartArduinoProp3Camera3);
   socket.on('restartButtonChallenge3ClickedCamera4', restartArduinoProp3Camera4);
-  socket.on('restartButtonChallenge4Clicked', restartArduinoProp2);
+  socket.on('restartButtonChallenge4Clicked', restartArduinoProp4);
   socket.on('restartButtonChallenge5Clicked', resetRaspberryC5);
+
+  // restart all arduinos
+  socket.on('restartAllArduinos', () => {
+    restartArduinoProp1();
+    restartArduinoProp2();
+    restartArduinoProp3Camera1();
+    restartArduinoProp3Camera2();
+    restartArduinoProp3Camera3();
+    restartArduinoProp3Camera4();
+    restartArduinoProp4();
+    resetRaspberryC5();
+  });
+
+  // puzzle complete
+  socket.on('challengeComplete3', puzzleCompleteProp3);
 
   // timer sockets
   socket.on('startTimer', startMainTimer);
@@ -61,8 +84,8 @@ timerSingleton.getInstance("mainTimer").onTick = (elapsedTime) => io.emit('timer
 
 // Define routes
 app.get('/', (req, res) => { res.send('The LED API is working!'); });
-app.get('/challenge1Completed', puzzleCompleteProp1);
-app.get('/restartArduinoProp1', restartArduinoProp1);
+// app.get('/challenge1Completed', puzzleCompleteProp1);
+// app.get('/restartArduinoProp1', restartArduinoProp1);
 // app.get('/startChallenge1', startChallenge1);
 
 
@@ -82,7 +105,7 @@ const MQTT_TOPICS_SUBSCRIPTIONS = [
   "prop3/puzzleCompleteCamera4",
   'prop4/puzzleComplete',
   'prop5/puzzleComplete',
-  'prop1/restartArduino',
+  
 ];
 
 MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
@@ -102,8 +125,8 @@ MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
     }if (topic === "prop3/puzzleCompleteCamera4" && message === "completed") {
       io.emit("challengeComplete3Camera4", true);
     }if(topic === 'prop4/puzzleComplete' && message === 'completed'){
-      
-    }  
+      puzzleCompleteProp4();
+    }
   }
   ).catch((err) => {
     console.error(`Error subscribing to topic ${topic}: ${err}`);

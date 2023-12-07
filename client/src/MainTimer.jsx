@@ -18,9 +18,21 @@ const MainTimer = () => {
     setCurrentTime(formatTime(data));
   });
   
-  const startTimer = () => socket.emit('startTimer');
+  const startTimer = () => {
+    socket.emit('startTimer');
+    socket.emit("startButtonChallenge1Clicked");
+    
+    console.log("Escape room started");
+
+
+};
   const pauzeTimer = () => socket.emit('pauzeTimer');
   const stopTimer = () => socket.emit('stopTimer');
+
+  const handleRestart = () => {
+    socket.emit("restartAllArduinos");
+    console.log("Restarting all arduinos");
+  };
 
 
   return (
@@ -28,7 +40,8 @@ const MainTimer = () => {
       <p>{currentTime}</p>
       <button onClick={startTimer}>start</button>
       <button onClick={pauzeTimer}>pauze</button>
-      <button onClick={stopTimer}>reset Ttmer</button>
+      <button onClick={stopTimer}>reset Timer</button>
+      <button onClick={handleRestart}>Restart all arduinos</button>
     </div>
   );
 };

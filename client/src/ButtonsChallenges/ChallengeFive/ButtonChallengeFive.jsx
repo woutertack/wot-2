@@ -6,11 +6,9 @@ import {socket} from '../../socket';
 
 const ButtonChallengeFive = () => {
   const [currentTime, setCurrentTime] = useState(0);
+  const [puzzleCompleted, setPuzzleCompleted] = useState(false);
 
-  const handleTimeUpdate = (newTime) => {
-    setCurrentTime(newTime);
-    console.log("Handling time update...");
-  };
+ 
 
   const handleRestart = () => {
     socket.emit("restartButtonChallenge5Clicked");
@@ -23,11 +21,11 @@ const ButtonChallengeFive = () => {
       <h3>Challenge Five</h3>
       {/* Other challenge-specific content */}
       <Timer
-        onTimeUpdate={handleTimeUpdate}
+     
         onRestart={handleRestart}
       />
     
-     
+    {puzzleCompleted && <p>Puzzle Completed!</p>}
     </div>
   );
 };

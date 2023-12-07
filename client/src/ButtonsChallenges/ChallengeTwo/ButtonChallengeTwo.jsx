@@ -7,25 +7,26 @@ import {socket} from '../../socket';
 const ButtonChallengeTwo = () => {
   const [puzzleCompleted, setPuzzleCompleted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  // let socket = io(API_URL);
+  
 
 
   const handleRestart = () => {
     setCurrentTime(0);
     console.log("Handling restart...");
+    setPuzzleCompleted(false);
   };
   
   socket.on('challengeComplete2', () => {
     
     setPuzzleCompleted(true);
-    console.log("Challenge 1 completed");
+    console.log("Challenge 2 completed");
   });
 
 
 
   return (
     <div className="challenge">
-      <h3>Challenge One</h3>
+      <h3>Challenge Two</h3>
       {/* Other challenge-specific content */}
       
       <Timer

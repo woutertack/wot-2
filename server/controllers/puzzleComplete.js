@@ -19,6 +19,7 @@ export const puzzleCompleteProp2 = (req, res) => {
         MQTTSingleton.getClient().publish('prop3/startChallenge3');
         MQTTSingleton.getClient().publish('sound');
         MQTTSingleton.getClient().publish('prop3/index');
+        io.emit('challengeComplete2', true);
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -27,9 +28,17 @@ export const puzzleCompleteProp2 = (req, res) => {
 
 export const puzzleCompleteProp3 = (req, res) => {
   try {
-        MQTTSingleton.getClient().publish('prop3/startChallenge3');
-        MQTTSingleton.getClient().publish('sound');
-        MQTTSingleton.getClient().publish('prop3/index');
+        MQTTSingleton.getClient().publish('prop4/startChallenge4');
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+export const puzzleCompleteProp4 = (req, res) => {
+  try {
+        MQTTSingleton.getClient().publish('prop5/index');
+        io.emit('challengeComplete4', true);
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: 'Internal Server Error' });
