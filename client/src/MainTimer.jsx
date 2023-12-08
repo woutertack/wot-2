@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { API_URL } from './consts';
 import { socket } from './socket';
 
-const MainTimer = () => {
+const MainTimer = ({ onTimerTick }) => {
   const [currentTime, setCurrentTime]  = useState("00:00");
 
   function formatTime(seconds) {
@@ -16,6 +16,7 @@ const MainTimer = () => {
 
   socket.on('timerTick', (data) => {
     setCurrentTime(formatTime(data));
+    onTimerTick(formatTime(data)); 
   });
   
   const startTimer = () => {
@@ -41,7 +42,7 @@ const MainTimer = () => {
       <button onClick={startTimer}>start</button>
       <button onClick={pauzeTimer}>pauze</button>
       <button onClick={stopTimer}>reset Timer</button>
-      <button onClick={handleRestart}>Restart all arduinos</button>
+     
     </div>
   );
 };

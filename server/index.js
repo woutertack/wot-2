@@ -15,6 +15,7 @@ import { pauzeMainTimer, startMainTimer, stopMainTimer } from './controllers/tim
 import { puzzleCompleteProp1, puzzleCompleteProp2, puzzleCompleteProp3, puzzleCompleteProp4 } from './controllers/puzzleComplete.js';
 import { restartArduinoProp1, restartArduinoProp2, restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoProp3Camera3, restartArduinoProp3Camera4, restartArduinoProp4, resetRaspberryC5 } from './controllers/restartChallenges.js';
 import { startChallenge1, startChallenge3, startChallenge4, startChallenge5 } from './controllers/startChallenges.js';
+import { addScoreToLeaderBoard, deleteEntry, getLeaderBoard, updateGroupName, updateTime } from './controllers/leaderboard.js';
 
 
 dotenv.config();
@@ -27,6 +28,9 @@ const httpServer = http.createServer(app);
 
 // Enable CORS
 app.use(cors());
+
+//Leaderboard middleware
+app.use(express.json());
 
 // Socket IO
 export const io = new Server(httpServer, {
@@ -86,6 +90,11 @@ timerSingleton.getInstance("mainTimer").onTick = (elapsedTime) => io.emit('timer
 // Define routes
 app.get('/', (req, res) => { res.send('The LED API is working!'); });
 
+app.get("/leaderboard", getLeaderBoard);
+app.post("/leaderboard", addScoreToLeaderBoard);
+app.put("/leaderboard/:groupId", updateGroupName);
+app.patch("/leaderboard/:groupId", updateTime);
+app.delete("/leaderboard/:groupId", deleteEntry);
 
 // Start server
 // mqttSingleton.getInstance().subscribe('prop1/puzzleComplete');
