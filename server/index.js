@@ -3,19 +3,18 @@ import http from 'http';
 
 import dotenv from 'dotenv';
 import cors from 'cors';
-import MQTTSingleton from './lib/mqttSingleton.js';
+import mqttSingleton from './lib/mqttSingleton.js';
 import timerSingleton from './lib/timerSingleton.js';
 import { Server } from 'socket.io';
-import { puzzleCompleteProp1, startChallenge1 } from './controllers/challenge1.js';
-import { restartArduinoProp1 } from './controllers/challenge1.js';
+
+
 import { pauzeMainTimer, startMainTimer, stopMainTimer } from './controllers/timer.js';
-import mqttSingleton from './lib/mqttSingleton.js';
-import { puzzleCompleteProp2, restartArduinoProp2 } from './controllers/challenge2.js';
-import { restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoProp3Camera3, restartArduinoProp3Camera4 } from './controllers/challenge3.js';
-import { resetRaspberryC5 } from './controllers/challenge5.js';
-import { puzzleCompleteProp3, puzzleCompleteProp4 } from './controllers/puzzleComplete.js';
-import { restartArduinoProp4 } from './controllers/challenge4.js';
-import { startChallenge3, startChallenge4, startChallenge5 } from './controllers/startChallenges.js';
+
+
+
+import { puzzleCompleteProp1, puzzleCompleteProp2, puzzleCompleteProp3, puzzleCompleteProp4 } from './controllers/puzzleComplete.js';
+import { restartArduinoProp1, restartArduinoProp2, restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoProp3Camera3, restartArduinoProp3Camera4, restartArduinoProp4, resetRaspberryC5 } from './controllers/restartChallenges.js';
+import { startChallenge1, startChallenge3, startChallenge4, startChallenge5 } from './controllers/startChallenges.js';
 
 
 dotenv.config();

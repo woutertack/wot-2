@@ -1,9 +1,6 @@
-// ButtonChallengeOne.js
 import React, { useState, useEffect } from "react";
-
 import Timer from "../Timer";
-import {socket} from '../../socket';
-
+import { socket } from "../../socket";
 
 const ButtonChallengeThree = () => {
   const [currentTime, setCurrentTime] = useState(0);
@@ -13,34 +10,34 @@ const ButtonChallengeThree = () => {
   const [camera3Destroyed, setCamera3Destroyed] = useState(false);
   const [camera4Destroyed, setCamera4Destroyed] = useState(false);
 
+  // Add cooldown state for each camera
+  const [camera1Cooldown, setCamera1Cooldown] = useState(false);
+  const [camera2Cooldown, setCamera2Cooldown] = useState(false);
+  const [camera3Cooldown, setCamera3Cooldown] = useState(false);
+  const [camera4Cooldown, setCamera4Cooldown] = useState(false);
+
   const handleStart = () => {
     socket.emit("startButtonChallenge3Clicked");
-    
+
     console.log("Handling start challenge 1...");
   };
 
-
-  // const handleRestart = () => {
-  //   setCurrentTime(0);
-  //   console.log("Handling restart...");
-  // };
-
-  socket.on('challengeComplete3Camera1', () => {
+  socket.on("challengeComplete3Camera1", () => {
     setCamera1Destroyed(true);
     console.log("Camera 1 destroyed");
   });
 
-  socket.on('challengeComplete3Camera2', () => {
+  socket.on("challengeComplete3Camera2", () => {
     setCamera2Destroyed(true);
     console.log("Camera 2 destroyed");
   });
 
-  socket.on('challengeComplete3Camera3', () => {
+  socket.on("challengeComplete3Camera3", () => {
     setCamera3Destroyed(true);
     console.log("Camera 3 destroyed");
   });
 
-  socket.on('challengeComplete3Camera4', () => {
+  socket.on("challengeComplete3Camera4", () => {
     setCamera4Destroyed(true);
     console.log("Camera 4 destroyed");
   });
@@ -53,42 +50,65 @@ const ButtonChallengeThree = () => {
     }
   }, [camera1Destroyed, camera2Destroyed, camera3Destroyed, camera4Destroyed]);
 
+  const restartCamera = (cameraNumber, setCameraDestroyed, setCameraCooldown) => {
+    socket.emit(`restartButtonChallenge3ClickedCamera${cameraNumber}`);
+    console.log(`Restarting camera ${cameraNumber}`);
 
-  
+    // Set camera cooldown to true
+    setCameraCooldown(true);
+
+    // Disable the button for 5 seconds (5000 milliseconds)
+    setTimeout(() => {
+      // Enable the button after 5 seconds
+      setCameraCooldown(false);
+      console.log(`Cooldown lifted for camera ${cameraNumber}`);
+    }, 5000);
+
+    // Reset camera destroyed status
+    setCameraDestroyed(false);
+  };
+
   const restartCam1 = () => {
-    socket.emit("restartButtonChallenge3ClickedCamera1");
-    console.log("Restarting camera 1");
-    setCamera1Destroyed(false);
-  }
+    if (!camera1Cooldown) {
+      restartCamera(1, setCamera1Destroyed, setCamera1Cooldown);
+    }
+  };
+
   const restartCam2 = () => {
-    socket.emit("restartButtonChallenge3ClickedCamera2");
-    console.log("Restarting camera 2");
-    setCamera2Destroyed(false);
-  }
+    if (!camera2Cooldown) {
+      restartCamera(2, setCamera2Destroyed, setCamera2Cooldown);
+    }
+  };
+
   const restartCam3 = () => {
-    socket.emit("restartButtonChallenge3ClickedCamera3");
-    console.log("Restarting camera 3");
-    setCamera3Destroyed(false);
-  }
+    if (!camera3Cooldown) {
+      restartCamera(3, setCamera3Destroyed, setCamera3Cooldown);
+    }
+  };
+
   const restartCam4 = () => {
-    socket.emit("restartButtonChallenge3ClickedCamera4");
-    console.log("Restarting camera 4");
-    setCamera4Destroyed(false);
-  }
+    if (!camera4Cooldown) {
+      restartCamera(4, setCamera4Destroyed, setCamera4Cooldown);
+    }
+  };
 
   return (
     <div className="challenge">
       <h3>Challenge Three</h3>
-      {/* Other challenge-specific content */}
-      {/* <Timer
-     
-        onRestart={handleRestart}
-      /> */}
-      <button onClick={handleStart}>Start</button>
-      <button onClick={restartCam1}>restart camera 1</button>
-      <button onClick={restartCam2}>restart camera 2</button>
-      <button onClick={restartCam3}>restart camera 3</button>
-      <button onClick={restartCam4}>restart camera 4</button>
+
+      {/* <button onClick={handleStart}>Start</button> */}
+      <button onClick={restartCam1} disabled={camera1Cooldown}>
+        Restart camera 1
+      </button>
+      <button onClick={restartCam2} disabled={camera2Cooldown}>
+        Restart camera 2
+      </button>
+      <button onClick={restartCam3} disabled={camera3Cooldown}>
+        Restart camera 3
+      </button>
+      <button onClick={restartCam4} disabled={camera4Cooldown}>
+        Restart camera 4
+      </button>
       {camera1Destroyed && <p>Camera 1 Destroyed!</p>}
       {camera2Destroyed && <p>Camera 2 Destroyed!</p>}
       {camera3Destroyed && <p>Camera 3 Destroyed!</p>}
