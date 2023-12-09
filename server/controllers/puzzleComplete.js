@@ -44,3 +44,12 @@ export const puzzleCompleteProp4 = (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+export const puzzleCompleteProp5 = (req, res) => {
+  try {
+        io.emit('challengeComplete5', true);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}

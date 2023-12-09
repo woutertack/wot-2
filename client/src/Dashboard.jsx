@@ -12,8 +12,9 @@ import ButtonChallengeThree from './ButtonsChallenges/ChallengeThree/ButtonChall
 import ButtonChallengeFour from './ButtonsChallenges/ChallengeFour/ButtonChallengeFour.jsx';
 import ButtonChallengeFive from './ButtonsChallenges/ChallengeFive/ButtonChallengeFive.jsx';
 import MainTimer from './MainTimer.jsx';
+import { socket } from "./socket";
 
-const socket = io('http://localhost:7000/', { transports: ['websocket'], upgrade: false });
+const socketPi = io('http://localhost:8000/', { transports: ['websocket'], upgrade: false });
 
 
 const Dashboard = () => {
@@ -63,21 +64,27 @@ const Dashboard = () => {
   const handleSocketEvents = (handleChallengeCompleted) => {
 
     // socket event that checks if challenge 5 is completed
-    socket.on('challenge5/completed', () => {
-      // alert('Challenge 5 completed!');
-      handleChallengeCompleted(5); // stop timer of challenge 5
-      // setIsModalOpen(true);
-      setTimeout(() => {
-        setIsModalOpen(true);
-      }, 0);
+    // socket.on('challengeComplete5', () => {
+    //   // alert('Challenge 5 completed!');
+    //   handleChallengeCompleted(5); // stop timer of challenge 5
+    //   // setIsModalOpen(true);
+    //   setTimeout(() => {
+    //     setIsModalOpen(true);
+    //   }, 0);
   
-    });
+    // });
   
     // socket event that checks if the player asked for a hint
-    socket.on('playerAskForAHint', () => {
+    socketPi.on('playerAskForAHint', () => {
       alert('Player asked for a hint!');
     });
   }
+
+  socket.on('challengeComplete5', () => {
+    setIsModalOpen(true)
+    console.log("Challenge 5 completed");
+  });
+  
   
   useEffect(() => {
     Modal.setAppElement('#root');

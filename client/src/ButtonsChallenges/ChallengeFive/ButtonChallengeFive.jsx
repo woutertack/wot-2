@@ -22,6 +22,12 @@ const ButtonChallengeFive = () => {
     setPuzzleCompleted(false);
   };
 
+  socket.on('challengeComplete5', () => {
+    
+    setPuzzleCompleted(true);
+    console.log("Challenge 5 completed");
+  });
+
   return (
     <div className="challenge">
       <h3>Challenge Five</h3>
