@@ -8,17 +8,18 @@ const ButtonChallengeFive = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [puzzleCompleted, setPuzzleCompleted] = useState(false);
 
- 
+  const handleStart = () => {
+    socket.emit("startButtonChallenge5Clicked");
+
+    console.log("Handling start challenge 5...");
+  }
 
   const handleRestart = () => {
     socket.emit("restartButtonChallenge5Clicked");
     setCurrentTime(0);
-    console.log("Handling restart...");
+    console.log("Handling restart challenge 5...");
 
     setPuzzleCompleted(false);
-
-    // also start challenge again, if you want to full restart (without starting) press restart all arduinos
-    socket.emit("startButtonChallenge5Clicked");
   };
 
   return (
@@ -26,7 +27,7 @@ const ButtonChallengeFive = () => {
       <h3>Challenge Five</h3>
       {/* Other challenge-specific content */}
       <Timer
-     
+        onStart={handleStart}
         onRestart={handleRestart}
       />
     

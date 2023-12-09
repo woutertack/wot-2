@@ -17,7 +17,7 @@ const socket = io('http://localhost:7000/', { transports: ['websocket'], upgrade
 
 
 const Dashboard = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [totalCounter, setTotalCounter] = useState("00:00");
   const [teamName, setTeamName] = useState('');
   const [hint, setHint] = useState('');
@@ -30,7 +30,7 @@ const Dashboard = () => {
     setTotalCounter(currentTime);
   };
 
-
+  // add entry to leaderboard
   const handleAddEntry = () => {
     
     fetch(`${API_URL}/leaderboard`, {

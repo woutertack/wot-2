@@ -19,7 +19,7 @@ const ButtonChallengeThree = () => {
   const handleStart = () => {
     socket.emit("startButtonChallenge3Clicked");
 
-    console.log("Handling start challenge 1...");
+    console.log("Handling start challenge 3...");
   };
 
   socket.on("challengeComplete3Camera1", () => {
@@ -49,6 +49,16 @@ const ButtonChallengeThree = () => {
       socket.emit("challengeComplete3");
     }
   }, [camera1Destroyed, camera2Destroyed, camera3Destroyed, camera4Destroyed]);
+
+
+  const handleRestart = () => {
+    socket.emit(`restartButtonChallenge3ClickedCamera1`);
+    socket.emit(`restartButtonChallenge3ClickedCamera2`);
+    socket.emit(`restartButtonChallenge3ClickedCamera3`);
+    socket.emit(`restartButtonChallenge3ClickedCamera4`);
+    console.log("Handling restart challenge 3...");
+    setPuzzleCompleted(false);
+  };
 
   const restartCamera = (cameraNumber, setCameraDestroyed, setCameraCooldown) => {
     socket.emit(`restartButtonChallenge3ClickedCamera${cameraNumber}`);
@@ -95,8 +105,11 @@ const ButtonChallengeThree = () => {
   return (
     <div className="challenge">
       <h3>Challenge Three</h3>
-
-      {/* <button onClick={handleStart}>Start</button> */}
+      <Timer
+        onStart={handleStart}
+        onRestart={handleRestart}
+      />
+      
       <button onClick={restartCam1} disabled={camera1Cooldown}>
         Restart camera 1
       </button>

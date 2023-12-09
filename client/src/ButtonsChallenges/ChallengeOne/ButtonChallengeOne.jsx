@@ -12,18 +12,17 @@ const ButtonChallengeOne = () => {
 
   const handleRestart = () => {
     socket.emit("restartButtonChallenge1Clicked");
-    console.log("Handling restart...");
+    console.log("Handling restart challnege 1...");
     setPuzzleCompleted(false);
 
-    // also start challenge again, if you want to full restart (without starting) press restart all arduinos
-    socket.emit("startButtonChallenge1Clicked");
+    
   };
   
-  // const handleStart = () => {
-  //   socket.emit("startButtonChallenge1Clicked");
+  const handleStart = () => {
+    socket.emit("startButtonChallenge1Clicked");
     
-  //   console.log("Handling start challenge 1...");
-  // };
+    console.log("Handling start challenge 1...");
+  };
 
 
  
@@ -41,7 +40,7 @@ const ButtonChallengeOne = () => {
       {/* Other challenge-specific content */}
       {/* <button onClick={handleStart}>Start</button> */}
       <Timer
-        
+        onStart={handleStart}
         onRestart={handleRestart}
       />
     
