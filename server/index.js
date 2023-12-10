@@ -13,9 +13,10 @@ import { pauzeMainTimer, startMainTimer, stopMainTimer } from './controllers/tim
 
 
 import { puzzleCompleteProp1, puzzleCompleteProp2, puzzleCompleteProp3, puzzleCompleteProp4, puzzleCompleteProp5 } from './controllers/puzzleComplete.js';
-import { restartArduinoProp1, restartArduinoProp2, restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoProp3Camera3, restartArduinoProp3Camera4, restartArduinoProp4, resetRaspberryC5 } from './controllers/restartChallenges.js';
+import { restartArduinoProp1, restartArduinoProp2, restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoProp3Camera3, restartArduinoProp3Camera4, restartArduinoProp4, restartRaspberryPi } from './controllers/restartChallenges.js';
 import { startChallenge1, startChallenge3, startChallenge4, startChallenge5 } from './controllers/startChallenges.js';
 import { addScoreToLeaderBoard, deleteEntry, getLeaderBoard, updateGroupName, updateTime } from './controllers/leaderboard.js';
+import { raspberryPiBlack, raspberryPiChallenge3Dashboard, raspberryPiChallenge3Index, raspberryPiChallenge5Index } from './controllers/raspberryPi.js';
 
 
 dotenv.config();
@@ -48,6 +49,12 @@ io.on('connection', (socket) => {
   socket.on('startButtonChallenge4Clicked', startChallenge4);
   socket.on('startButtonChallenge5Clicked', startChallenge5);
 
+  // raspberryPi
+  socket.on('RaspberryPiChallenge3IndexClicked', raspberryPiChallenge3Index)
+  socket.on('RaspberryPiChallenge3DashboardClicked', raspberryPiChallenge3Dashboard)
+  socket.on('RaspberryPiChallenge5IndexClicked', raspberryPiChallenge5Index)
+  socket.on('RaspberryPiBlackClicked', raspberryPiBlack)
+
   // restart arduinos
   socket.on('restartButtonChallenge1Clicked', restartArduinoProp1);
   socket.on('restartButtonChallenge2Clicked', restartArduinoProp2);
@@ -56,7 +63,7 @@ io.on('connection', (socket) => {
   socket.on('restartButtonChallenge3ClickedCamera3', restartArduinoProp3Camera3);
   socket.on('restartButtonChallenge3ClickedCamera4', restartArduinoProp3Camera4);
   socket.on('restartButtonChallenge4Clicked', restartArduinoProp4);
-  socket.on('restartButtonChallenge5Clicked', resetRaspberryC5);
+  socket.on('restartButtonChallenge5Clicked', restartRaspberryPi);
 
   // restart all arduinos
   socket.on('restartAllArduinos', () => {
@@ -67,7 +74,7 @@ io.on('connection', (socket) => {
     restartArduinoProp3Camera3();
     restartArduinoProp3Camera4();
     restartArduinoProp4();
-    resetRaspberryC5();
+    restartRaspberryPi();
   });
 
   // puzzle complete

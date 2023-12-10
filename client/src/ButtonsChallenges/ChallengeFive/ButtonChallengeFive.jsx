@@ -22,8 +22,20 @@ const ButtonChallengeFive = () => {
     setPuzzleCompleted(false);
   };
 
+  const handleRaspberryPiChallenge3Index = () => { 
+    socket.emit("RaspberryPiChallenge3IndexClicked");
+  }
+  const handleRaspberryPiChallenge3Dashboard = () => { 
+    socket.emit("RaspberryPiChallenge3DashboardClicked");
+  }
+  const handleRaspberryPiChallenge5Index = () => { 
+    socket.emit("RaspberryPiChallenge5IndexClicked");
+  }
+  const handleRaspberryPiBlack = () => { 
+    socket.emit("RaspberryPiBlackClicked");
+  }
+
   socket.on('challengeComplete5', () => {
-    
     setPuzzleCompleted(true);
     console.log("Challenge 5 completed");
   });
@@ -36,7 +48,10 @@ const ButtonChallengeFive = () => {
         onStart={handleStart}
         onRestart={handleRestart}
       />
-    
+      <button onClick={handleRaspberryPiChallenge5Index}>prop 5 index page</button>
+      <button onClick={handleRaspberryPiChallenge3Index}>prop 3 index page</button>
+      <button onClick={handleRaspberryPiChallenge3Dashboard}>prop 3 dashboard page</button>
+      <button onClick={handleRaspberryPiBlack}>black page</button>
     {puzzleCompleted && <p>Puzzle Completed!</p>}
     </div>
   );

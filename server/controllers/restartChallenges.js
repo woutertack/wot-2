@@ -69,9 +69,9 @@ export const restartArduinoProp4 = (req, res) => {
 }
 
 
-export const resetRaspberryC5 = (req, res) => {
+export const restartRaspberryPi = (req, res) => {
   try{
-    MQTTSingleton.getClient().publish('prop5/restartPi');
+    MQTTSingleton.getClient().publish('prop5/restartRaspbery');
   }
   catch(e){
     console.error(e)
