@@ -17,7 +17,8 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.20.0",
     "react-time-picker": "^6.5.2",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "socketio": "^1.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
