@@ -105,7 +105,7 @@ const Dashboard = () => {
     console.log(hintMessage);
    
     // Add the hint message to the array
-    setHintMessages(prevMessages => [...prevMessages, hintMessage]);
+    setHintMessages(hintMessage);
 
 
   });
@@ -201,9 +201,10 @@ const Dashboard = () => {
     </div>
     <div className="hintMessage">
       <h2>Hint messages</h2>
-      {hintMessages.map((message, index) => (
+      {/* {hintMessages.map((message, index) => (
         <p key={index}>{message}</p>
-      ))}
+      ))} */}
+      {hintMessages}
     </div>
 
    </div>
