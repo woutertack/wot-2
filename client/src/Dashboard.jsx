@@ -93,7 +93,7 @@ const Dashboard = () => {
     // alert('Player asked for a hint!');
     // setHintMessage('Player asked for a hint!');
     // setHintMessages(prevMessages => [...prevMessages, 'Player asked for a hint!']);
-
+    playHintSound();
     const now = new Date();
 
     // Format the date and time as a string
@@ -109,6 +109,13 @@ const Dashboard = () => {
 
 
   });
+
+  const playHintSound = () => {
+    console.log('Playing hint sound');
+    const audio = new Audio('./src/audio/hint_message.mp3');
+    audio.play();
+  }
+
 
   // socket event that checks if the player asked for a hint
   // socketPi.on('playerAskForAHint', () => {
