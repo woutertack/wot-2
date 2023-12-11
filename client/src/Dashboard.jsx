@@ -24,7 +24,7 @@ const Dashboard = () => {
   const [teamName, setTeamName] = useState('');
   const [hint, setHint] = useState('');
   const [hintInput, setHintInput] = useState('');
-  const [hintOptions, setHintOptions] = useState(["Hint 1", "Hint 2", "Hint 3"]);
+  const [hintOptions, setHintOptions] = useState(["Je kan maar 1 hint krijgen om de 5min", "Hint 1", "Hint 2", "Hint 3"]);
  
   // let didPlayerAskedForAHint = document.querySelector('.didPlayerAskedForAHint');
   const [receivedHint, setReceivedHint] = useState('');
