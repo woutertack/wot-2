@@ -15,6 +15,7 @@ import MainTimer from './MainTimer.jsx';
 import { socket } from "./socket";
 
 const socketPi = io('http://localhost:8000/', { transports: ['websocket'], upgrade: false });
+// const socketPi = io('http://192.168.50.252:8000/', { transports: ['websocket'], upgrade: false });
 
 
 const Dashboard = () => {
@@ -24,6 +25,9 @@ const Dashboard = () => {
   const [hint, setHint] = useState('');
   const [hintInput, setHintInput] = useState('');
   const [hintOptions, setHintOptions] = useState(["Hint 1", "Hint 2", "Hint 3"]);
+ 
+  // let didPlayerAskedForAHint = document.querySelector('.didPlayerAskedForAHint');
+  const [receivedHint, setReceivedHint] = useState('');
 
  
   // get timer from MainTimer
@@ -57,7 +61,9 @@ const Dashboard = () => {
       const hintToSend = selectedHint || hintInput.trim();
       if (hintToSend !== '') {
           setHint(hintToSend);
-          socket.emit('display_hint', hintToSend);
+          console.log('Sending hint: ' + hintToSend);
+          socketPi.emit('display_hint', hintToSend);
+          console.log('Sent hint: ' + hintToSend);
       }
   };
 
@@ -75,10 +81,18 @@ const Dashboard = () => {
     // });
   
     // socket event that checks if the player asked for a hint
-    socketPi.on('playerAskForAHint', () => {
-      alert('Player asked for a hint!');
-    });
+
   }
+
+  socketPi.on('playerAskForAHint', () => {
+    alert('Player asked for a hint!');
+  });
+
+  // socket event that checks if the player asked for a hint
+  // socketPi.on('playerAskForAHint', () => {
+  //   // alert('Player asked for a hint!');
+  //   setReceivedHint('Player asked for a hint!');
+  // });
 
   socket.on('challengeComplete5', () => {
     setIsModalOpen(true)
@@ -90,7 +104,7 @@ const Dashboard = () => {
     Modal.setAppElement('#root');
    }, []);
 
-  //  useEffect(() => {
+  // useEffect(() => {
   //   handleSocketEvents(handleChallengeCompleted);
   // }, [handleChallengeCompleted]);
 
