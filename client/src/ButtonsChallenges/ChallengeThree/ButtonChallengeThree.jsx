@@ -17,7 +17,7 @@ const ButtonChallengeThree = () => {
   const [camera4Cooldown, setCamera4Cooldown] = useState(false);
 
   const handleStart = () => {
-    socket.emit("startButtonChallenge3Clicked");
+    socket.emit("startButtonChallenge3ClickedCamera1");
 
     console.log("Handling start challenge 3...");
   };
@@ -58,6 +58,10 @@ const ButtonChallengeThree = () => {
     socket.emit(`restartButtonChallenge3ClickedCamera4`);
     console.log("Handling restart challenge 3...");
     setPuzzleCompleted(false);
+    setCamera1Destroyed(false);
+    setCamera2Destroyed(false);
+    setCamera3Destroyed(false);
+    setCamera4Destroyed(false);
   };
 
   const restartCamera = (cameraNumber, setCameraDestroyed, setCameraCooldown) => {
@@ -76,29 +80,49 @@ const ButtonChallengeThree = () => {
 
     // Reset camera destroyed status
     setCameraDestroyed(false);
+   
+
   };
 
   const restartCam1 = () => {
     if (!camera1Cooldown) {
       restartCamera(1, setCamera1Destroyed, setCamera1Cooldown);
+  
+      // Emit socket event after 5 seconds
+      setTimeout(() => {
+        socket.emit("startButtonChallenge3ClickedCamera1");
+      }, 5000);
     }
   };
 
   const restartCam2 = () => {
     if (!camera2Cooldown) {
       restartCamera(2, setCamera2Destroyed, setCamera2Cooldown);
+
+      setTimeout(() => {
+        socket.emit("startButtonChallenge3ClickedCamera2");
+      }, 5000);
     }
   };
 
   const restartCam3 = () => {
     if (!camera3Cooldown) {
       restartCamera(3, setCamera3Destroyed, setCamera3Cooldown);
+
+      setTimeout(() => {
+        socket.emit("startButtonChallenge3ClickedCamera3");
+      }, 5000);
     }
   };
 
   const restartCam4 = () => {
     if (!camera4Cooldown) {
       restartCamera(4, setCamera4Destroyed, setCamera4Cooldown);
+
+      setTimeout(() => {
+        socket.emit("startButtonChallenge3ClickedCamera4");
+      }, 5000);
+
     }
   };
 

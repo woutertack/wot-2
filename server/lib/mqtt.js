@@ -74,6 +74,14 @@ class MQTT {
     });
   }
 
+  /**
+   * Attach an event handler to the MQTT client
+   * @param {string} event
+   * @param {Function} handler
+   */
+  on(event, handler) {
+    this.client.on(event, handler);
+  }
   
 
   /**

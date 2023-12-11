@@ -51,6 +51,9 @@ const Timer = ({ onStart, onRestart }) => {
       <button onClick={handleStart} disabled={cooldown || timerStarted}>
         Start
       </button>
+      {/* <button onClick={handleStart} >
+        Start
+      </button> */}
       <button onClick={handleRestart} disabled={cooldown}>
         {cooldown ? `Restarting in ${countdown}s` : "Restart device(s)"}
       </button>
