@@ -29,6 +29,11 @@ const Dashboard = () => {
   // let didPlayerAskedForAHint = document.querySelector('.didPlayerAskedForAHint');
   const [receivedHint, setReceivedHint] = useState('');
 
+  // const [hintMessage, setHintMessage] = useState('');
+  const [hintMessages, setHintMessages] = useState([]);
+
+
+
  
   // get timer from MainTimer
    const handleTimerTick = (currentTime) => {
@@ -85,7 +90,24 @@ const Dashboard = () => {
   }
 
   socketPi.on('playerAskForAHint', () => {
-    alert('Player asked for a hint!');
+    // alert('Player asked for a hint!');
+    // setHintMessage('Player asked for a hint!');
+    // setHintMessages(prevMessages => [...prevMessages, 'Player asked for a hint!']);
+
+    const now = new Date();
+
+    // Format the date and time as a string
+    const dateTimeString = now.toLocaleString();
+   
+    // Append the date and time to the hint message
+    const hintMessage = 'Player asked for a hint! ' + dateTimeString;
+
+    console.log(hintMessage);
+   
+    // Add the hint message to the array
+    setHintMessages(prevMessages => [...prevMessages, hintMessage]);
+
+
   });
 
   // socket event that checks if the player asked for a hint
@@ -177,6 +199,13 @@ const Dashboard = () => {
         />
         <button onClick={() => sendHint()}>Send Hint</button>
     </div>
+    <div className="hintMessage">
+      <h2>Hint messages</h2>
+      {hintMessages.map((message, index) => (
+        <p key={index}>{message}</p>
+      ))}
+    </div>
+
    </div>
     );
   };
