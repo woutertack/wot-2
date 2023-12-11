@@ -8,24 +8,40 @@ const Cameras = () => {
    <div className='cameras'>
      <div className='camera'>
        <p className='cameraTitle'>Camera 1</p>
-       <img className="camera1" src="https://via.placeholder.com/150x55" alt="Camera 1" />
+      <img id="stream1" src="http://192.168.0.121:81/stream" crossOrigin="" />
+            {/* <img id="stream" className='camera1' src="http://192.168.50.254:81/stream" crossOrigin=""></img> */}
      </div>
-     <div className='camera'>
-       <p className='cameraTitle'>Camera 2</p>
-       <img className="camera2" src="https://via.placeholder.com/150x55" alt="Camera 2" />
-     </div>
-     <div className='camera'>
-       <p className='cameraTitle'>Camera 3</p>
-       <img className="camera3" src="https://via.placeholder.com/150x55" alt="Camera 3" />
-     </div>
-     <div className='camera'>
-       <p className='cameraTitle'>Camera 4</p>
-       <img className="camera4" src="https://via.placeholder.com/150x55" alt="Camera 4" />
-     </div>
+    
    </div>
  </>
+
+
 
  );
 };
 
 export default Cameras;
+
+
+
+{/* <div class="camera-container">
+      <div class="camera camera-blink-1">
+        <!-- <img id="stream1" src="http://192.168.0.121:81/stream" crossorigin="" onerror="handleError(this)"> -->
+        <img id="stream" src="http://192.168.50.254:81/stream" crossorigin="">
+        <p>El CAMERA 1</p>
+    </div>
+    <div class="camera camera-blink-2">
+        <!-- <img id="stream2" src="http://192.168.0.121:81/stream" crossorigin="" onerror="handleError(this)"> -->
+        <img id="stream" src="http://192.168.50.83:81/stream" crossorigin="">
+        <p>EL CAMERA 2</p>
+    </div>
+    <div class="camera camera-blink-3">
+        <!-- <img id="stream3" src="http://192.168.0.121:81/stream" crossorigin="" onerror="handleError(this)"> -->
+        <img id="stream" src="http://192.168.50.44:81/stream" crossorigin="">
+        <p>EL CAMERA 3</p>
+    </div>
+    <div class="camera camera-blink-4">
+        <!-- <img id="stream4" src="http://192.168.0.121:81/stream" crossorigin="" onerror="handleError(this)"> -->
+        <img id="stream" src="http://192.168.50.182:81/stream" crossorigin="">
+        <p>EL CAMERA 4</p>
+    </div> */}
