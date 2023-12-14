@@ -12,7 +12,7 @@ import { pauzeMainTimer, startMainTimer, stopMainTimer } from './controllers/tim
 
 
 
-import { puzzleCompleteProp1, puzzleCompleteProp2, puzzleCompleteProp3, puzzleCompleteProp4, puzzleCompleteProp5 } from './controllers/puzzleComplete.js';
+import { puzzleCompleteProp1, puzzleCompleteProp2, puzzleCompleteProp3, puzzleCompleteProp4, puzzleCompleteProp4Cable, puzzleCompleteProp4Connected, puzzleCompleteProp5 } from './controllers/puzzleComplete.js';
 import { restartArduinoProp1, restartArduinoProp2, restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoProp3Camera3, restartArduinoProp3Camera4, restartArduinoProp4, restartRaspberryPi } from './controllers/restartChallenges.js';
 import { startChallenge1, startChallenge3Camera1, startChallenge3Camera2, startChallenge3Camera3, startChallenge3Camera4, startChallenge4, startChallenge5 } from './controllers/startChallenges.js';
 import { addScoreToLeaderBoard, deleteEntry, getLeaderBoard, updateGroupName, updateTime } from './controllers/leaderboard.js';
@@ -133,6 +133,9 @@ const MQTT_TOPICS_SUBSCRIPTIONS = [
   "prop3/puzzleCompleteCamera4",
   'prop4/puzzleComplete',
   'prop5/puzzleComplete',
+
+  'arduino/cables',
+  'arduino/connected'
   
 ];
 
@@ -156,7 +159,11 @@ const topicFunctionMap = {
   'prop3/puzzleCompleteCamera4': () => {
     io.emit('challengeComplete3Camera4', true);
   },
+  'arduino/cables': puzzleCompleteProp4Cable,
+  'arduino/connected': puzzleCompleteProp4Connected,
   'prop4/puzzleComplete': puzzleCompleteProp4,
+  
+
   'prop5/puzzleComplete': () => {
     puzzleCompleteProp5();
     pauzeMainTimer();

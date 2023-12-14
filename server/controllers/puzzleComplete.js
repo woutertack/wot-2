@@ -37,6 +37,30 @@ export const puzzleCompleteProp3 = (req, res) => {
   }
 }
 
+export const puzzleCompleteProp4Cable = (req, res) => {
+  try {
+        // io.emit('challengeComplete4', true);
+        MQTTSingleton.getClient().publish('arduino/cables');
+        console.log('arduino cables publish')
+        
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+export const puzzleCompleteProp4Connected = (req, res) => {
+  try {
+        // io.emit('challengeComplete4', true);
+        MQTTSingleton.getClient().publish('arduino/connected');
+        
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+
 export const puzzleCompleteProp4 = (req, res) => {
   try {
         io.emit('challengeComplete4', true);
@@ -47,6 +71,8 @@ export const puzzleCompleteProp4 = (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+
 
 export const puzzleCompleteProp5 = (req, res) => {
   try {

@@ -25,7 +25,7 @@ export const startChallenge3Camera1 = (req, res) => {
   
   try {
     MQTTSingleton.getClient().publish('prop3/startChallenge3Camera1');
-    MQTTSingleton.getClient().publish('sound');
+    // MQTTSingleton.getClient().publish('sound');
     MQTTSingleton.getClient().publish('prop3/index');
    
     console.log('MQTT message published to Arduino');
