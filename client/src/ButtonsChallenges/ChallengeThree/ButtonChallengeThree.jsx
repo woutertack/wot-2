@@ -24,22 +24,22 @@ const ButtonChallengeThree = () => {
 
   socket.on("challengeComplete3Camera1", () => {
     setCamera1Destroyed(true);
-    console.log("Camera 1 destroyed");
+    
   });
 
   socket.on("challengeComplete3Camera2", () => {
     setCamera2Destroyed(true);
-    console.log("Camera 2 destroyed");
+    
   });
 
   socket.on("challengeComplete3Camera3", () => {
     setCamera3Destroyed(true);
-    console.log("Camera 3 destroyed");
+    
   });
 
   socket.on("challengeComplete3Camera4", () => {
     setCamera4Destroyed(true);
-    console.log("Camera 4 destroyed");
+    
   });
 
   useEffect(() => {

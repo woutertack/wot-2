@@ -7,10 +7,8 @@ import MQTTSingleton from "../lib/mqttSingleton.js"
  */
 export const alarmSound = (req, res) => {
   try {
-    MQTTSingleton.getClient().subscribeOnce('alarm').then((message) => {
-      res.status(200).json("play alarm");
-    });
-    MQTTSingleton.getClient().publish('alarm', "play alarm");
+    
+    MQTTSingleton.getClient().publish('alarm');
   } catch(e) {
     console.error(e)
   }
@@ -18,10 +16,8 @@ export const alarmSound = (req, res) => {
 
 export const morseSound = (req, res) => {
   try {
-    MQTTSingleton.getClient().subscribeOnce('sound').then((message) => {
-      res.status(200).json("play morse");
-    });
-    MQTTSingleton.getClient().publish('sound', "play morse");
+   
+    MQTTSingleton.getClient().publish('sound');
   } catch(e) {
     console.error(e)
   }
@@ -29,10 +25,8 @@ export const morseSound = (req, res) => {
 
 export const stopSound = (req, res) => {
   try {
-    MQTTSingleton.getClient().subscribeOnce('stop').then((message) => {
-      res.status(200).json("stop sound");
-    });
-    MQTTSingleton.getClient().publish('stop', "stop sound");
+   
+    MQTTSingleton.getClient().publish('stop');
   } catch(e) {
     console.error(e)
   }

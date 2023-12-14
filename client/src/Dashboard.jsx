@@ -14,8 +14,9 @@ import ButtonChallengeFive from './ButtonsChallenges/ChallengeFive/ButtonChallen
 import MainTimer from './MainTimer.jsx';
 import { socket } from "./socket";
 
-const socketPi = io('http://localhost:8000/', { transports: ['websocket'], upgrade: false });
-// const socketPi = io('http://192.168.50.252:8000/', { transports: ['websocket'], upgrade: false });
+// const socketPi = io('http://localhost:8000/', { transports: ['websocket'], upgrade: false });
+const socketPi = io('http://192.168.50.252:8000/', { transports: ['websocket'], upgrade: false });
+// const socketPi = io('http://0.0.0.0:8000/', { transports: ['websocket'], upgrade: false });
 
 
 const Dashboard = () => {
@@ -24,7 +25,14 @@ const Dashboard = () => {
   const [teamName, setTeamName] = useState('');
   const [hint, setHint] = useState('');
   const [hintInput, setHintInput] = useState('');
-  const [hintOptions, setHintOptions] = useState(["Je kan maar 1 hint krijgen om de 5min", "Hint 1", "Hint 2", "Hint 3"]);
+  const [hintOptions, setHintOptions] = useState(
+    [
+      "Je kan maar 1 hint krijgen om de 5 min", 
+      "Hint 1", 
+      "Hint 2", 
+      "Hint 3"
+    ]
+    );
  
   // let didPlayerAskedForAHint = document.querySelector('.didPlayerAskedForAHint');
   const [receivedHint, setReceivedHint] = useState('');
@@ -62,14 +70,28 @@ const Dashboard = () => {
       .catch(error => console.error('Fout bij het toevoegen van een nieuwe entry', error));
   };
   
-  const sendHint = (selectedHint) => {
-      const hintToSend = selectedHint || hintInput.trim();
-      if (hintToSend !== '') {
-          setHint(hintToSend);
-          console.log('Sending hint: ' + hintToSend);
-          socketPi.emit('display_hint', hintToSend);
-          console.log('Sent hint: ' + hintToSend);
-      }
+  const sendHint = (selectedOption) => {
+    let hint = selectedOption;
+      // const hintToSend = selectedHint || hintInput.trim();
+      // if (hintToSend !== '') {
+      //     setHint(hintToSend);
+      //     console.log('Sending hint: ' + hintToSend);
+      //     socketPi.emit('display_hint', hintToSend);
+      //     console.log('Sent hint: ' + hintToSend);
+      // }
+
+      // let hint = hintInput.trim();
+
+      // socketPi.emit('display_hint', hint);
+
+    // If no hardcoded option is selected, check the input field
+    if (!hint && hintInput.trim() !== "") {
+        hint = hintInput.trim();
+    }
+
+
+      socketPi.emit('display_hint', hint);
+      console.log('hint sent')
   };
 
   const handleSocketEvents = (handleChallengeCompleted) => {
@@ -90,6 +112,7 @@ const Dashboard = () => {
   }
 
   socketPi.on('playerAskForAHint', () => {
+    console.log('player asked for hint')
     // alert('Player asked for a hint!');
     // setHintMessage('Player asked for a hint!');
     // setHintMessages(prevMessages => [...prevMessages, 'Player asked for a hint!']);
@@ -101,6 +124,7 @@ const Dashboard = () => {
    
     // Append the date and time to the hint message
     const hintMessage = 'Player asked for a hint! ' + dateTimeString;
+    // alert('player wants a hint')
 
     console.log(hintMessage);
    
@@ -116,11 +140,12 @@ const Dashboard = () => {
     audio.play();
   }
 
+  
 
   // socket event that checks if the player asked for a hint
   // socketPi.on('playerAskForAHint', () => {
   //   // alert('Player asked for a hint!');
-  //   setReceivedHint('Player asked for a hint!');
+  //   setReceivedHint('Player asked for a hint!')
   // });
 
   socket.on('challengeComplete5', () => {

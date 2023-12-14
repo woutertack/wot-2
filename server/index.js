@@ -17,6 +17,7 @@ import { restartArduinoProp1, restartArduinoProp2, restartArduinoProp3Camera1, r
 import { startChallenge1, startChallenge3Camera1, startChallenge3Camera2, startChallenge3Camera3, startChallenge3Camera4, startChallenge4, startChallenge5 } from './controllers/startChallenges.js';
 import { addScoreToLeaderBoard, deleteEntry, getLeaderBoard, updateGroupName, updateTime } from './controllers/leaderboard.js';
 import { raspberryPiBlack, raspberryPiChallenge3Dashboard, raspberryPiChallenge3Index, raspberryPiChallenge5Index } from './controllers/raspberryPi.js';
+import { alarmSound, morseSound, stopSound } from './controllers/sound.js';
 
 
 dotenv.config();
@@ -40,9 +41,14 @@ export const io = new Server(httpServer, {
     methods: ["GET", "POST"]
   }
 });
-// For testing purposes
+
 io.on('connection', (socket) => {
   console.log('New user connected!');
+
+  
+  // socket.on('playerAskForAHint', ()=> {
+  //   console.log('received hint')
+  // })
 
   socket.on('startButtonChallenge1Clicked', startChallenge1);
   socket.on('startButtonChallenge3ClickedCamera1', startChallenge3Camera1);
@@ -82,6 +88,11 @@ io.on('connection', (socket) => {
 
   // puzzle complete
   socket.on('challengeComplete3', puzzleCompleteProp3);
+
+  // sound
+  socket.on('alarm', alarmSound);
+  socket.on('morse', morseSound);
+  socket.on('stopSound', stopSound);
 
   // timer sockets
   socket.on('startTimer', startMainTimer);
@@ -124,6 +135,8 @@ const MQTT_TOPICS_SUBSCRIPTIONS = [
   'prop5/puzzleComplete',
   
 ];
+
+
 
 const topicFunctionMap = {
   'prop1/puzzleComplete': puzzleCompleteProp1,

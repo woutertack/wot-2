@@ -7,11 +7,12 @@ const Cameras = () => {
  <h1>Camera overzicht</h1>
    <div className='cameras'>
      <div className='camera'>
-       <p className='cameraTitle'>Camera 1</p>
-      <img id="stream1" src="http://192.168.0.121:81/stream" crossOrigin="" />
+       <p className='cameraTitle'>Camera 4</p>
+      <img id="stream1" src="http://192.168.50.44:81/stream" crossOrigin="" /> 
             {/* <img id="stream" className='camera1' src="http://192.168.50.254:81/stream" crossOrigin=""></img> */}
      </div>
-    
+
+     
    </div>
  </>
 

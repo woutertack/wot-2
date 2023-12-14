@@ -3,7 +3,7 @@ import MQTTSingleton from "../lib/mqttSingleton.js"
 export const restartArduinoProp1 = (req, res) => {
   try{
     MQTTSingleton.getClient().publish('prop1/restartArduino');
-    MQTTSingleton.getClient().subscribe('prop1/startChallenge1');
+    
   }
   catch(e){
     console.error(e)

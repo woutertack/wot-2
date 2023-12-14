@@ -13,7 +13,7 @@ const char *ssid = "WOT"; // Enter your WiFi name
 const char *password = "enterthegame";  // Enter WiFi password
 
 // Define MQTT broker information
-const char *mqtt_server = "192.168.50.108";
+const char *mqtt_server = "192.168.50.107";
 const int mqtt_port = 1883;
 
 // Prop name

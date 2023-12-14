@@ -1,6 +1,8 @@
 import MQTTSingleton from "../lib/mqttSingleton.js"
 import { io } from "../index.js"
 
+
+
 // things done when challenge one is solved
 export const puzzleCompleteProp1 = (req, res) => {
   try{
@@ -37,8 +39,9 @@ export const puzzleCompleteProp3 = (req, res) => {
 
 export const puzzleCompleteProp4 = (req, res) => {
   try {
-        MQTTSingleton.getClient().publish('prop5/index');
         io.emit('challengeComplete4', true);
+        MQTTSingleton.getClient().publish('prop5/index');
+        
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: 'Internal Server Error' });

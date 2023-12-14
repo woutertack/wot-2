@@ -17,7 +17,23 @@ const ButtonChallengeTwo = () => {
 
     
   };
+
+  // buttons for sound playing/stopping
+  const alarm = () => {
+    console.log("Playing sound...");
+    socket.emit("alarm");
+  };
   
+  const morse = () => {
+    console.log("Playing sound...");
+    socket.emit("morse");
+  };
+
+  const stopSound = () => {
+    console.log("Stopping sound...");
+    socket.emit("stopSound");
+  };
+
   socket.on('challengeComplete2', () => {
     
     setPuzzleCompleted(true);
@@ -35,6 +51,10 @@ const ButtonChallengeTwo = () => {
         
         onRestart={handleRestart}
       />
+      <button onClick={alarm}>Play Alarm</button>
+      <button onClick={morse}>Play Morse Code</button>
+      <button onClick={stopSound}>Stop Sound</button>
+
     
     {puzzleCompleted && <p>Puzzle Completed!</p>}
     </div>

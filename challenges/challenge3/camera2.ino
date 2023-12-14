@@ -13,7 +13,7 @@ const char *ssid = "WOT"; // Enter your WiFi name
 const char *password = "enterthegame";  // Enter WiFi password
 
 // Define MQTT broker information
-const char *mqtt_server = "192.168.50.108";
+const char *mqtt_server = "192.168.50.107";
 const int mqtt_port = 1883;
 
 // Prop name
@@ -24,7 +24,7 @@ const char *mqttPuzzleCompleteMessage = "completed";
 const char *mqttRestartArduinoTopic = "prop3/restartArduinoCamera2";
 const char *mqttRestartArduinoMessage = "restarted";
 
-const char *mqttStartChallengeTopic = "prop3/startChallenge3Camera1";
+const char *mqttStartChallengeTopic = "prop3/startChallenge3Camera2";
 const char *mqttStartChallengeMessage = "true";
 
 // Define variables for board

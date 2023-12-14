@@ -13,8 +13,8 @@ export const startChallenge1 = (req, res) => {
     console.log('MQTT message published to Arduino');
     // You can include additional data or customize the MQTT message as needed
 
-    // Send a response to the client
-    io.emit('challengeStarted1', { message: 'Challenge 1 started!' });
+    // // Send a response to the client
+    // io.emit('challengeStarted1', { message: 'Challenge 1 started!' });
   } catch(e) {
     console.error(e)
   }
@@ -27,7 +27,7 @@ export const startChallenge3Camera1 = (req, res) => {
     MQTTSingleton.getClient().publish('prop3/startChallenge3Camera1');
     MQTTSingleton.getClient().publish('sound');
     MQTTSingleton.getClient().publish('prop3/index');
-    // MQTTSingleton.getClient().publish('prop1/startChallenge1', 'Challenge 1 started!');
+   
     console.log('MQTT message published to Arduino');
     // You can include additional data or customize the MQTT message as needed
 
@@ -74,7 +74,7 @@ export const startChallenge4 = (req, res) => {
     MQTTSingleton.getClient().publish('prop4/startChallenge4');
    
     
-    // MQTTSingleton.getClient().publish('prop1/startChallenge1', 'Challenge 1 started!');
+    
     console.log('MQTT message published to Arduino');
     // You can include additional data or customize the MQTT message as needed
 
