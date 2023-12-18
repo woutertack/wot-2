@@ -12,9 +12,9 @@ import { pauzeMainTimer, startMainTimer, stopMainTimer } from './controllers/tim
 
 
 
-import { puzzleCompleteProp1, puzzleCompleteProp2, puzzleCompleteProp3, puzzleCompleteProp4, puzzleCompleteProp4Cable, puzzleCompleteProp4Connected, puzzleCompleteProp5 } from './controllers/puzzleComplete.js';
+import { puzzleCompleteProp1, puzzleCompleteProp2, puzzleCompleteProp3, puzzleCompleteProp4, puzzleCompleteProp5 } from './controllers/puzzleComplete.js';
 import { restartArduinoProp1, restartArduinoProp2, restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoProp3Camera3, restartArduinoProp3Camera4, restartArduinoProp4, restartRaspberryPi } from './controllers/restartChallenges.js';
-import { startChallenge1, startChallenge3Camera1, startChallenge3Camera2, startChallenge3Camera3, startChallenge3Camera4, startChallenge4, startChallenge5 } from './controllers/startChallenges.js';
+import { arduinCablesConnected, startChallenge1, startChallenge3Camera1, startChallenge3Camera2, startChallenge3Camera3, startChallenge3Camera4, startChallenge4, startChallenge5 } from './controllers/startChallenges.js';
 import { addScoreToLeaderBoard, deleteEntry, getLeaderBoard, updateGroupName, updateTime } from './controllers/leaderboard.js';
 import { raspberryPiBlack, raspberryPiChallenge3Dashboard, raspberryPiChallenge3Index, raspberryPiChallenge5Index } from './controllers/raspberryPi.js';
 import { alarmSound, morseSound, stopSound } from './controllers/sound.js';
@@ -133,55 +133,118 @@ const MQTT_TOPICS_SUBSCRIPTIONS = [
   "prop3/puzzleCompleteCamera4",
   'prop4/puzzleComplete',
   'prop5/puzzleComplete',
-
   'arduino/cables',
-  'arduino/connected'
   
 ];
 
 
 
-const topicFunctionMap = {
-  'prop1/puzzleComplete': puzzleCompleteProp1,
-  'prop2/puzzleComplete': puzzleCompleteProp2,
-  'prop3/puzzleCompleteCamera1': () => {
-    io.emit('challengeComplete3Camera1', true);
-    startChallenge3Camera2();
-  },
-  'prop3/puzzleCompleteCamera2': () => {
-    io.emit('challengeComplete3Camera2', true);
-    startChallenge3Camera3();
-  },
-  'prop3/puzzleCompleteCamera3': () => {
-    io.emit('challengeComplete3Camera3', true);
-    startChallenge3Camera4();
-  },
-  'prop3/puzzleCompleteCamera4': () => {
-    io.emit('challengeComplete3Camera4', true);
-  },
-  'arduino/cables': puzzleCompleteProp4Cable,
-  'arduino/connected': puzzleCompleteProp4Connected,
-  'prop4/puzzleComplete': puzzleCompleteProp4,
-  
+// const topicFunctionMap = {
+//   'prop1/puzzleComplete': puzzleCompleteProp1,
+//   'prop2/puzzleComplete': puzzleCompleteProp2,
+//   'prop3/puzzleCompleteCamera1': () => {
+//     io.emit('challengeComplete3Camera1', true);
+//     startChallenge3Camera2();
+//   },
+//   'prop3/puzzleCompleteCamera2': () => {
+//     io.emit('challengeComplete3Camera2', true);
+//     startChallenge3Camera3();
+//   },
+//   'prop3/puzzleCompleteCamera3': () => {
+//     io.emit('challengeComplete3Camera3', true);
+//     startChallenge3Camera4();
+//   },
+//   'prop3/puzzleCompleteCamera4': () => {
+//     io.emit('challengeComplete3Camera4', true);
+//   },
+//   'prop4/puzzleComplete': puzzleCompleteProp4,
+//   'prop5/puzzleComplete': () => {
+//     puzzleCompleteProp5();
+//     pauzeMainTimer();
+//   },
+// };
 
-  'prop5/puzzleComplete': () => {
+
+
+// MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
+//   mqttSingleton.getClient().subscribeOnce(topic).then((message) => {
+//     console.log({topic, message});
+//     if(topic === 'prop1/puzzleComplete' && message === 'completed'){
+//       puzzleCompleteProp1();
+//     }if(topic === "arduino/cables"){
+//       console.log('arduino cables received')
+//       arduinCablesConnected();}
+
+//     if(topic === 'prop2/puzzleComplete' && message === 'completed'){
+//       puzzleCompleteProp2();
+//     }if (topic === "prop3/puzzleCompleteCamera1" && message === "completed") {
+//       io.emit("challengeComplete3Camera1", true);
+//       // start the next camera
+//       startChallenge3Camera2();
+//     }if (topic === "prop3/puzzleCompleteCamera2" && message === "completed") {
+//       io.emit("challengeComplete3Camera2", true);
+//       // start the next camera
+//       startChallenge3Camera3();
+//     }if (topic === "prop3/puzzleCompleteCamera3" && message === "completed") {
+//       io.emit("challengeComplete3Camera3", true);
+//       // start the next camera
+//       startChallenge3Camera4();
+//     }if (topic === "prop3/puzzleCompleteCamera4" && message === "completed") {
+//       io.emit("challengeComplete3Camera4", true);
+//     }
+//     if(topic === "prop4/puzzleComplete" && message === "completed"){
+//       puzzleCompleteProp4();
+//     }if(topic === "prop5/puzzleComplete" && message === "completed"){
+//       puzzleCompleteProp5();
+//       pauzeMainTimer();
+//     }
+//   }
+//   ).catch((err) => {
+//     console.error(`Error subscribing to topic ${topic}: ${err}`);
+//   }
+// );
+// });
+
+mqttSingleton.getClient().on('message', (topic, message) => {
+  console.log(`Received message on topic ${topic}: ${message.toString()}`);
+  if(topic === 'prop1/puzzleComplete' && message === 'completed'){
+    puzzleCompleteProp1();
+  }if(topic === "arduino/cables"){
+    console.log('arduino cables received')
+    arduinCablesConnected();}
+
+  if(topic === 'prop2/puzzleComplete' && message === 'completed'){
+    puzzleCompleteProp2();
+  }if (topic === "prop3/puzzleCompleteCamera1" && message === "completed") {
+    io.emit("challengeComplete3Camera1", true);
+    // start the next camera
+    startChallenge3Camera2();
+  }if (topic === "prop3/puzzleCompleteCamera2" && message === "completed") {
+    io.emit("challengeComplete3Camera2", true);
+    // start the next camera
+    startChallenge3Camera3();
+  }if (topic === "prop3/puzzleCompleteCamera3" && message === "completed") {
+    io.emit("challengeComplete3Camera3", true);
+    // start the next camera
+    startChallenge3Camera4();
+  }if (topic === "prop3/puzzleCompleteCamera4" && message === "completed") {
+    io.emit("challengeComplete3Camera4", true);
+  }
+  if(topic === "prop4/puzzleComplete" && message === "completed"){
+    puzzleCompleteProp4();
+  }if(topic === "prop5/puzzleComplete" && message === "completed"){
     puzzleCompleteProp5();
     pauzeMainTimer();
-  },
-};
+  }
+}
+);
 
 MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
   mqttSingleton.getClient().subscribe(topic); // Change subscribeOnce to subscribe
-
-  mqttSingleton.getClient().on('message', (receivedTopic, message) => {
-    console.log(`Received message on topic ${receivedTopic}: ${message.toString()}`);
-
-    const topicFunction = topicFunctionMap[receivedTopic];
-    if (topicFunction && message.toString() === 'completed') {
-      topicFunction();
-    }
-  });
+  
 });
+
+
 
 // Export app for testing purposes
 export default app;

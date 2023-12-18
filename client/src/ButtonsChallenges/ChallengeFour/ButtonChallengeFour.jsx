@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import Timer from "../Timer";
 import {socket} from '../../socket';
+import {API_URL} from '../../consts';
 
 
 const ButtonChallengeFour = () => {
@@ -28,6 +29,20 @@ const ButtonChallengeFour = () => {
     console.log("Challenge 4 completed");
   });
 
+  const handleButtons = () => {
+    // socket.emit("buttonChallenge4Clicked");
+    fetch(`${API_URL}/arduino/cables1`)
+          .then(res => res.text())
+          .then(data => {
+            console.log("restarted");
+            // setPuzzleCompleted(false);
+            // setToggleState(false);
+
+            // // Clear puzzle completion status from local storage when restarted
+            // savePuzzleCompletionToLocalStorage(false);
+          });
+  }
+
 
   return (
     <div className="challenge">
@@ -37,6 +52,7 @@ const ButtonChallengeFour = () => {
         onStart={handleStart}
         onRestart={handleRestart}
       />
+      <button onClick={handleButtons}>start button</button>
     
     {puzzleCompleted && <p>Puzzle Completed!</p>}
     </div>

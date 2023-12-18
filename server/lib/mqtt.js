@@ -5,7 +5,7 @@ class MQTT {
     this.client = mqtt.connect(options.brokerUrl, options.options);
 
      // Set the maximum number of listeners to 50
-    this.client.setMaxListeners(50);
+    this.client.setMaxListeners(500);
      
     this.client.on('connect', () => {
       console.log(`Connected to MQTT broker at ${options.brokerUrl}`);

@@ -25,7 +25,7 @@ export const startChallenge3Camera1 = (req, res) => {
   
   try {
     MQTTSingleton.getClient().publish('prop3/startChallenge3Camera1');
-    // MQTTSingleton.getClient().publish('sound');
+    MQTTSingleton.getClient().publish('sound');
     MQTTSingleton.getClient().publish('prop3/index');
    
     console.log('MQTT message published to Arduino');
@@ -84,6 +84,22 @@ export const startChallenge4 = (req, res) => {
     console.error(e)
   }
 }
+
+export const arduinCablesConnected = (req, res) => {
+    
+    try {
+      MQTTSingleton.getClient().publish('arduino/cables1' ,'succes');
+    
+      
+      console.log('arduino/cables1 one published to Arduino');
+      // You can include additional data or customize the MQTT message as needed
+  
+      // Send a response to the client
+      
+    } catch(e) {
+      console.error(e)
+    }
+  }
 
 export const startChallenge5 = (req, res) => {
   try{
