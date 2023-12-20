@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Timer from "../Timer";
 import {socket} from '../../socket';
 
+
 const ButtonChallengeFive = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [puzzleCompleted, setPuzzleCompleted] = useState(false);
@@ -56,10 +57,10 @@ const ButtonChallengeFive = () => {
         onStart={handleStart}
         onRestart={handleRestart}
       />
-      <button onClick={handleRaspberryPiChallenge5Index} disabled={challenge3Index}>prop 5 index page</button>
-      <button onClick={handleRaspberryPiChallenge3Index} disabled={challenge3Dashboard}>prop 3 index page</button>
-      <button onClick={handleRaspberryPiChallenge3Dashboard} disabled={challenge5Index}>prop 3 dashboard page</button>
-      <button onClick={handleRaspberryPiBlack} disabled={black}>black page</button>
+      <button onClick={handleRaspberryPiChallenge5Index} >prop 5 index page</button>
+      <button onClick={handleRaspberryPiChallenge3Index} >prop 3 index page</button>
+      <button onClick={handleRaspberryPiChallenge3Dashboard} >prop 3 dashboard page</button>
+      <button onClick={handleRaspberryPiBlack} >black page</button>
     {puzzleCompleted && <p>Puzzle Completed!</p>}
     </div>
   );

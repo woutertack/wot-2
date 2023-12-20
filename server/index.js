@@ -134,9 +134,55 @@ const MQTT_TOPICS_SUBSCRIPTIONS = [
   'prop4/puzzleComplete',
   'prop5/puzzleComplete',
   'arduino/cables',
-  
+  'arduino/cables1',
 ];
 
+const topicFunctionMap = {
+  'prop1/puzzleComplete': puzzleCompleteProp1,
+  'prop2/puzzleComplete': puzzleCompleteProp2,
+  'prop3/puzzleCompleteCamera1': () => {
+    io.emit('challengeComplete3Camera1', true);
+    startChallenge3Camera2();
+  },
+  'prop3/puzzleCompleteCamera2': () => {
+    io.emit('challengeComplete3Camera2', true);
+    startChallenge3Camera3();
+  },
+  'prop3/puzzleCompleteCamera3': () => {
+    io.emit('challengeComplete3Camera3', true);
+    startChallenge3Camera4();
+  },
+  'prop3/puzzleCompleteCamera4': () => {
+    io.emit('challengeComplete3Camera4', true);
+  },
+  'prop4/puzzleComplete': puzzleCompleteProp4,
+  'prop5/puzzleComplete': () => {
+    puzzleCompleteProp5();
+    pauzeMainTimer();
+  },
+  'arduino/cables': arduinCablesConnected()
+};
+
+// Subscribe to topics
+MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
+  mqttSingleton.getClient().subscribe(topic);
+});
+
+// Set up message callback after subscriptions are done
+mqttSingleton.getClient().on('message', (receivedTopic, message) => {
+  console.log(`Received message on topic ${receivedTopic}: ${message.toString()}`);
+
+  const topicFunction = topicFunctionMap[receivedTopic];
+  if (topicFunction && message.toString() === 'completed') {
+    topicFunction();
+  }
+});
+
+
+
+
+// Export app for testing purposes
+export default app;
 
 
 // const topicFunctionMap = {
@@ -204,47 +250,3 @@ const MQTT_TOPICS_SUBSCRIPTIONS = [
 //   }
 // );
 // });
-
-mqttSingleton.getClient().on('message', (topic, message) => {
-  console.log(`Received message on topic ${topic}: ${message.toString()}`);
-  if(topic === 'prop1/puzzleComplete' && message === 'completed'){
-    puzzleCompleteProp1();
-  }if(topic === "arduino/cables"){
-    console.log('arduino cables received')
-    arduinCablesConnected();}
-
-  if(topic === 'prop2/puzzleComplete' && message === 'completed'){
-    puzzleCompleteProp2();
-  }if (topic === "prop3/puzzleCompleteCamera1" && message === "completed") {
-    io.emit("challengeComplete3Camera1", true);
-    // start the next camera
-    startChallenge3Camera2();
-  }if (topic === "prop3/puzzleCompleteCamera2" && message === "completed") {
-    io.emit("challengeComplete3Camera2", true);
-    // start the next camera
-    startChallenge3Camera3();
-  }if (topic === "prop3/puzzleCompleteCamera3" && message === "completed") {
-    io.emit("challengeComplete3Camera3", true);
-    // start the next camera
-    startChallenge3Camera4();
-  }if (topic === "prop3/puzzleCompleteCamera4" && message === "completed") {
-    io.emit("challengeComplete3Camera4", true);
-  }
-  if(topic === "prop4/puzzleComplete" && message === "completed"){
-    puzzleCompleteProp4();
-  }if(topic === "prop5/puzzleComplete" && message === "completed"){
-    puzzleCompleteProp5();
-    pauzeMainTimer();
-  }
-}
-);
-
-MQTT_TOPICS_SUBSCRIPTIONS.forEach((topic) => {
-  mqttSingleton.getClient().subscribe(topic); // Change subscribeOnce to subscribe
-  
-});
-
-
-
-// Export app for testing purposes
-export default app;

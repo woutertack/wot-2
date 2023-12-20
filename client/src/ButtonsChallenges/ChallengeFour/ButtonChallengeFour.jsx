@@ -29,19 +29,19 @@ const ButtonChallengeFour = () => {
     console.log("Challenge 4 completed");
   });
 
-  const handleButtons = () => {
-    // socket.emit("buttonChallenge4Clicked");
-    fetch(`${API_URL}/arduino/cables1`)
-          .then(res => res.text())
-          .then(data => {
-            console.log("restarted");
-            // setPuzzleCompleted(false);
-            // setToggleState(false);
+  // const handleButtons = () => {
+  //   // socket.emit("buttonChallenge4Clicked");
+  //   fetch(`${API_URL}/arduino/cables1`)
+  //         .then(res => res.text())
+  //         .then(data => {
+  //           console.log("restarted");
+  //           // setPuzzleCompleted(false);
+  //           // setToggleState(false);
 
-            // // Clear puzzle completion status from local storage when restarted
-            // savePuzzleCompletionToLocalStorage(false);
-          });
-  }
+  //           // // Clear puzzle completion status from local storage when restarted
+  //           // savePuzzleCompletionToLocalStorage(false);
+  //         });
+  // }
 
 
   return (
@@ -52,7 +52,7 @@ const ButtonChallengeFour = () => {
         onStart={handleStart}
         onRestart={handleRestart}
       />
-      <button onClick={handleButtons}>start button</button>
+      {/* <button onClick={handleButtons}>start button</button> */}
     
     {puzzleCompleted && <p>Puzzle Completed!</p>}
     </div>
