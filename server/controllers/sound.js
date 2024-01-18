@@ -31,3 +31,12 @@ export const stopSound = (req, res) => {
     console.error(e)
   }
 }
+
+export const startCableConnectedSound = (req, res) => {
+  try {
+    console.log('cable connected')
+    // MQTTSingleton.getClient().publish('cableConnected');
+  } catch(e) {
+    console.error(e)
+  }
+}

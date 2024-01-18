@@ -25,6 +25,7 @@ export const raspberryPiChallenge5Index = (req, res) => {
     console.error(e)
   }
 }
+
 export const raspberryPiBlack = (req, res) => {
   try{
     MQTTSingleton.getClient().publish('black');

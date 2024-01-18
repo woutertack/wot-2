@@ -8,16 +8,16 @@ import timerSingleton from './lib/timerSingleton.js';
 import { Server } from 'socket.io';
 
 
-import { pauzeMainTimer, startMainTimer, stopMainTimer } from './controllers/timer.js';
+import { pauzeMainTimer, pauzeTimerRaspberryPi, startMainTimer, startTimerRaspberryPi, stopMainTimer } from './controllers/timer.js';
 
 
 
-import { puzzleCompleteProp1, puzzleCompleteProp2, puzzleCompleteProp3, puzzleCompleteProp4, puzzleCompleteProp5 } from './controllers/puzzleComplete.js';
+import { pincodeCompleteProp3, puzzleCompleteProp1, puzzleCompleteProp2, puzzleCompleteProp3, puzzleCompleteProp4, puzzleCompleteProp5 } from './controllers/puzzleComplete.js';
 import { restartArduinoProp1, restartArduinoProp2, restartArduinoProp3Camera1, restartArduinoProp3Camera2, restartArduinoProp3Camera3, restartArduinoProp3Camera4, restartArduinoProp4, restartRaspberryPi } from './controllers/restartChallenges.js';
 import { arduinCablesConnected, startChallenge1, startChallenge3Camera1, startChallenge3Camera2, startChallenge3Camera3, startChallenge3Camera4, startChallenge4, startChallenge5 } from './controllers/startChallenges.js';
 import { addScoreToLeaderBoard, deleteEntry, getLeaderBoard, updateGroupName, updateTime } from './controllers/leaderboard.js';
 import { raspberryPiBlack, raspberryPiChallenge3Dashboard, raspberryPiChallenge3Index, raspberryPiChallenge5Index } from './controllers/raspberryPi.js';
-import { alarmSound, morseSound, stopSound } from './controllers/sound.js';
+import { alarmSound, morseSound, startCableConnectedSound, stopSound } from './controllers/sound.js';
 
 
 dotenv.config();
@@ -46,10 +46,8 @@ io.on('connection', (socket) => {
   console.log('New user connected!');
 
   
-  // socket.on('playerAskForAHint', ()=> {
-  //   console.log('received hint')
-  // })
-
+  
+  // start challenges
   socket.on('startButtonChallenge1Clicked', startChallenge1);
   socket.on('startButtonChallenge3ClickedCamera1', startChallenge3Camera1);
   socket.on('startButtonChallenge3ClickedCamera2', startChallenge3Camera2);
@@ -96,6 +94,9 @@ io.on('connection', (socket) => {
 
   // timer sockets
   socket.on('startTimer', startMainTimer);
+  socket.on('startTimerRaspberryPi', startTimerRaspberryPi)
+  socket.on('pauzeTimerRaspberryPi', pauzeTimerRaspberryPi);
+  socket.on('pauzeTimerRaspberryPi', pauzeMainTimer);
   socket.on('pauzeTimer', pauzeMainTimer);
   socket.on('stopTimer', stopMainTimer);
 
@@ -127,6 +128,7 @@ httpServer.listen(PORT, () => {
 const MQTT_TOPICS_SUBSCRIPTIONS = [
   'prop1/puzzleComplete',
   'prop2/puzzleComplete',
+  'prop3/pincodeComplete',
   "prop3/puzzleCompleteCamera1",
   "prop3/puzzleCompleteCamera2",
   "prop3/puzzleCompleteCamera3",
@@ -135,11 +137,13 @@ const MQTT_TOPICS_SUBSCRIPTIONS = [
   'prop5/puzzleComplete',
   'arduino/cables',
   'arduino/cables1',
+  'arduino/connected'
 ];
 
 const topicFunctionMap = {
   'prop1/puzzleComplete': puzzleCompleteProp1,
   'prop2/puzzleComplete': puzzleCompleteProp2,
+  'prop3/pincodeComplete': pincodeCompleteProp3,
   'prop3/puzzleCompleteCamera1': () => {
     io.emit('challengeComplete3Camera1', true);
     startChallenge3Camera2();
@@ -160,7 +164,12 @@ const topicFunctionMap = {
     puzzleCompleteProp5();
     pauzeMainTimer();
   },
-  'arduino/cables': arduinCablesConnected()
+  'arduino/cables': arduinCablesConnected(),
+  'cables/sound': startCableConnectedSound(),
+  'arduino/connected': () => {
+    console.log('arduino connected');
+    mqttSingleton.getClient().publish('cableConnected');
+  }
 };
 
 // Subscribe to topics

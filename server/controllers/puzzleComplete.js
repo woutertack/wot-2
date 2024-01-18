@@ -6,8 +6,8 @@ import { io } from "../index.js"
 // things done when challenge one is solved
 export const puzzleCompleteProp1 = (req, res) => {
   try{
-    MQTTSingleton.getClient().publish('alarm');
-    // MQTTSingleton.getClient().publish('prop2/startChallenge2');
+        MQTTSingleton.getClient().publish('alarm');
+       
         io.emit('challengeComplete1', true);
         console.log('Challenge 1 completed, published next challenge');
   }
@@ -18,10 +18,22 @@ export const puzzleCompleteProp1 = (req, res) => {
 
 export const puzzleCompleteProp2 = (req, res) => {
   try {
-        MQTTSingleton.getClient().publish('prop3/startChallenge3Camera1');
+        // MQTTSingleton.getClient().publish('prop3/startChallenge3Camera1');
         MQTTSingleton.getClient().publish('sound');
         MQTTSingleton.getClient().publish('prop3/index');
         io.emit('challengeComplete2', true);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+
+export const pincodeCompleteProp3 = (req, res) => {
+  try {
+        MQTTSingleton.getClient().publish('prop3/startChallenge3Camera1');
+       
+        
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -37,28 +49,7 @@ export const puzzleCompleteProp3 = (req, res) => {
   }
 }
 
-// export const puzzleCompleteProp4Cable = (req, res) => {
-//   try {
-//         // io.emit('challengeComplete4', true);
-//         MQTTSingleton.getClient().publish('arduino/cables');
-//         console.log('arduino cables publish')
-        
-//   } catch (e) {
-//     console.error(e);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// }
 
-// export const puzzleCompleteProp4Connected = (req, res) => {
-//   try {
-//         // io.emit('challengeComplete4', true);
-//         MQTTSingleton.getClient().publish('arduino/connected');
-        
-//   } catch (e) {
-//     console.error(e);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// }
 
 
 export const puzzleCompleteProp4 = (req, res) => {

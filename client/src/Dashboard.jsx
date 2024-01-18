@@ -1,7 +1,7 @@
 // Dashboard.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import './Dashboard.css';
-import { API_URL, STATE_URL } from './consts.js';
+import { API_URL } from './consts.js';
 
 import io from "socket.io-client";
 
@@ -14,16 +14,16 @@ import ButtonChallengeFive from './ButtonsChallenges/ChallengeFive/ButtonChallen
 import MainTimer from './MainTimer.jsx';
 import { socket } from "./socket";
 
-// const socketPi = io('http://localhost:8000/', { transports: ['websocket'], upgrade: false });
+
 const socketPi = io('http://192.168.50.252:8000/', { transports: ['websocket'], upgrade: false });
-// const socketPi = io('http://0.0.0.0:8000/', { transports: ['websocket'], upgrade: false });
+
 
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [totalCounter, setTotalCounter] = useState("00:00");
   const [teamName, setTeamName] = useState('');
-  const [hint, setHint] = useState('');
+ 
   const [hintInput, setHintInput] = useState('');
   const [hintOptions, setHintOptions] = useState(
     [
@@ -34,8 +34,7 @@ const Dashboard = () => {
     ]
     );
  
-  // let didPlayerAskedForAHint = document.querySelector('.didPlayerAskedForAHint');
-  const [receivedHint, setReceivedHint] = useState('');
+ 
 
   // const [hintMessage, setHintMessage] = useState('');
   const [hintMessages, setHintMessages] = useState([]);
@@ -72,17 +71,7 @@ const Dashboard = () => {
   
   const sendHint = (selectedOption) => {
     let hint = selectedOption;
-      // const hintToSend = selectedHint || hintInput.trim();
-      // if (hintToSend !== '') {
-      //     setHint(hintToSend);
-      //     console.log('Sending hint: ' + hintToSend);
-      //     socketPi.emit('display_hint', hintToSend);
-      //     console.log('Sent hint: ' + hintToSend);
-      // }
-
-      // let hint = hintInput.trim();
-
-      // socketPi.emit('display_hint', hint);
+     
 
     // If no hardcoded option is selected, check the input field
     if (!hint && hintInput.trim() !== "") {
@@ -94,28 +83,10 @@ const Dashboard = () => {
       console.log('hint sent')
   };
 
-  const handleSocketEvents = (handleChallengeCompleted) => {
-
-    // socket event that checks if challenge 5 is completed
-    // socket.on('challengeComplete5', () => {
-    //   // alert('Challenge 5 completed!');
-    //   handleChallengeCompleted(5); // stop timer of challenge 5
-    //   // setIsModalOpen(true);
-    //   setTimeout(() => {
-    //     setIsModalOpen(true);
-    //   }, 0);
-  
-    // });
-  
-    // socket event that checks if the player asked for a hint
-
-  }
-
+ 
   socketPi.on('playerAskForAHint', () => {
     console.log('player asked for hint')
-    // alert('Player asked for a hint!');
-    // setHintMessage('Player asked for a hint!');
-    // setHintMessages(prevMessages => [...prevMessages, 'Player asked for a hint!']);
+
     playHintSound();
     const now = new Date();
 
@@ -142,12 +113,6 @@ const Dashboard = () => {
 
   
 
-  // socket event that checks if the player asked for a hint
-  // socketPi.on('playerAskForAHint', () => {
-  //   // alert('Player asked for a hint!');
-  //   setReceivedHint('Player asked for a hint!')
-  // });
-
   socket.on('challengeComplete5', () => {
     setIsModalOpen(true)
     console.log("Challenge 5 completed");
@@ -158,9 +123,7 @@ const Dashboard = () => {
     Modal.setAppElement('#root');
    }, []);
 
-  // useEffect(() => {
-  //   handleSocketEvents(handleChallengeCompleted);
-  // }, [handleChallengeCompleted]);
+  
 
   const handleRestart = () => {
     socket.emit("restartAllArduinos");
@@ -209,7 +172,7 @@ const Dashboard = () => {
        
       }}>Add to leaderboard</a>
       </Modal>
-       {/* {/* Use other ButtonChallenge components for other challenges */}
+     
      </div>
      <div>
         <h2>Hint Options</h2>

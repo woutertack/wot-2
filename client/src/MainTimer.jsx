@@ -22,12 +22,16 @@ const MainTimer = ({ onTimerTick }) => {
   const startTimer = () => {
     socket.emit('startTimer');
     socket.emit("startButtonChallenge1Clicked");
+    socket.emit("startTimerRaspberryPi");
     
     console.log("Escape room started");
 
 
 };
-  const pauzeTimer = () => socket.emit('pauzeTimer');
+  const pauzeTimer = () => {
+    socket.emit('pauzeTimer');
+    socket.emit("pauzeTimerRaspberryPi");
+  };
   const stopTimer = () => socket.emit('stopTimer');
 
   const handleRestart = () => {
