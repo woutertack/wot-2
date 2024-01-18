@@ -30,7 +30,7 @@ const MainTimer = ({ onTimerTick }) => {
 };
   const pauzeTimer = () => {
     socket.emit('pauzeTimer');
-    socket.emit("pauzeTimerRaspberryPi");
+    
   };
   const stopTimer = () => socket.emit('stopTimer');
 

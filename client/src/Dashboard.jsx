@@ -47,9 +47,15 @@ const Dashboard = () => {
     setTotalCounter(currentTime);
   };
 
+  const convertTimeToSeconds = (timeString) => {
+    const [minutes, seconds] = timeString.split(':').map(Number);
+    return minutes * 60 + seconds;
+  };
+
   // add entry to leaderboard
   const handleAddEntry = () => {
-    
+    const totalTimeInSeconds = convertTimeToSeconds(totalCounter);
+
     fetch(`${API_URL}/leaderboard`, {
       method: 'POST',
       headers: {
@@ -57,7 +63,7 @@ const Dashboard = () => {
       },
       body: JSON.stringify({
         groupname: teamName,
-        time: totalCounter,
+        time: totalTimeInSeconds,
       }),
     })
       .then(response => {

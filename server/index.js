@@ -95,8 +95,6 @@ io.on('connection', (socket) => {
   // timer sockets
   socket.on('startTimer', startMainTimer);
   socket.on('startTimerRaspberryPi', startTimerRaspberryPi)
-  socket.on('pauzeTimerRaspberryPi', pauzeTimerRaspberryPi);
-  socket.on('pauzeTimerRaspberryPi', pauzeMainTimer);
   socket.on('pauzeTimer', pauzeMainTimer);
   socket.on('stopTimer', stopMainTimer);
 
